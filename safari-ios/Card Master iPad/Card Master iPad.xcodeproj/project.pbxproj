@@ -1,0 +1,712 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 110;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A1ED03E23045042200CF62FC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1ED03E13045042200CF62FC /* AppDelegate.swift */; };
+		A1ED03E63045042200CF62FC /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = A1ED03E43045042200CF62FC /* Main.html */; };
+		A1ED03E83045042200CF62FC /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = A1ED03E73045042200CF62FC /* Icon.png */; };
+		A1ED03EA3045042200CF62FC /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = A1ED03E93045042200CF62FC /* Style.css */; };
+		A1ED03EC3045042200CF62FC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1ED03EB3045042200CF62FC /* SceneDelegate.swift */; };
+		A1ED03EE3045042200CF62FC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1ED03ED3045042200CF62FC /* ViewController.swift */; };
+		A1ED03F13045042200CF62FC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1ED03EF3045042200CF62FC /* LaunchScreen.storyboard */; };
+		A1ED03F43045042200CF62FC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1ED03F23045042200CF62FC /* Main.storyboard */; };
+		A1ED03FC3045042300CF62FC /* Card Master iPad Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = A1ED03FB3045042300CF62FC /* Card Master iPad Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		A1ED04013045042300CF62FC /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1ED04003045042300CF62FC /* SafariWebExtensionHandler.swift */; };
+		A1ED04033045042300CF62FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1ED03F53045042300CF62FC /* Assets.xcassets */; };
+		A1ED042F3045042400CF62FC /* filters in Resources */ = {isa = PBXBuildFile; fileRef = A1ED040E3045042400CF62FC /* filters */; };
+		A1ED04303045042400CF62FC /* install.html in Resources */ = {isa = PBXBuildFile; fileRef = A1ED040F3045042400CF62FC /* install.html */; };
+		A1ED04313045042400CF62FC /* bilibili-recommendation-proxy.js in Resources */ = {isa = PBXBuildFile; fileRef = A1ED04103045042400CF62FC /* bilibili-recommendation-proxy.js */; };
+		A1ED04323045042400CF62FC /* theme-runtime.js in Resources */ = {isa = PBXBuildFile; fileRef = A1ED04113045042400CF62FC /* theme-runtime.js */; };
+		A1ED04333045042400CF62FC /* theme-proxy.js in Resources */ = {isa = PBXBuildFile; fileRef = A1ED04123045042400CF62FC /* theme-proxy.js */; };
+		A1ED04343045042400CF62FC /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = A1ED04133045042400CF62FC /* LICENSE */; };
+		A1ED04353045042400CF62FC /* licenses in Resources */ = {isa = PBXBuildFile; fileRef = A1ED04143045042400CF62FC /* licenses */; };
+		A1ED04363045042400CF62FC /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = A1ED04153045042400CF62FC /* background.js */; };
+		A1ED04373045042400CF62FC /* adguard-cosmetic-runtime.js in Resources */ = {isa = PBXBuildFile; fileRef = A1ED04163045042400CF62FC /* adguard-cosmetic-runtime.js */; };
+		A1ED04383045042400CF62FC /* web-accessible-resources in Resources */ = {isa = PBXBuildFile; fileRef = A1ED04173045042400CF62FC /* web-accessible-resources */; };
+		A1ED04393045042400CF62FC /* assistant-surface.js in Resources */ = {isa = PBXBuildFile; fileRef = A1ED04183045042400CF62FC /* assistant-surface.js */; };
+		A1ED043A3045042400CF62FC /* media-speed-proxy.js in Resources */ = {isa = PBXBuildFile; fileRef = A1ED04193045042400CF62FC /* media-speed-proxy.js */; };
+		A1ED043B3045042400CF62FC /* THIRD_PARTY_NOTICES.md in Resources */ = {isa = PBXBuildFile; fileRef = A1ED041A3045042400CF62FC /* THIRD_PARTY_NOTICES.md */; };
+		A1ED043C3045042400CF62FC /* library.js in Resources */ = {isa = PBXBuildFile; fileRef = A1ED041B3045042400CF62FC /* library.js */; };
+		A1ED043D3045042400CF62FC /* gamepad-control-content.js in Resources */ = {isa = PBXBuildFile; fileRef = A1ED041C3045042400CF62FC /* gamepad-control-content.js */; };
+		A1ED043E3045042400CF62FC /* adguard-runtime.js in Resources */ = {isa = PBXBuildFile; fileRef = A1ED041D3045042400CF62FC /* adguard-runtime.js */; };
+		A1ED043F3045042400CF62FC /* project-assets in Resources */ = {isa = PBXBuildFile; fileRef = A1ED041E3045042400CF62FC /* project-assets */; };
+		A1ED04403045042400CF62FC /* safari-userscript-runtime.js in Resources */ = {isa = PBXBuildFile; fileRef = A1ED041F3045042400CF62FC /* safari-userscript-runtime.js */; };
+		A1ED04413045042400CF62FC /* media-speed-content.js in Resources */ = {isa = PBXBuildFile; fileRef = A1ED04203045042400CF62FC /* media-speed-content.js */; };
+		A1ED04423045042400CF62FC /* adguard-content.js in Resources */ = {isa = PBXBuildFile; fileRef = A1ED04213045042400CF62FC /* adguard-content.js */; };
+		A1ED04433045042400CF62FC /* adguard-hide-document-referrer.js in Resources */ = {isa = PBXBuildFile; fileRef = A1ED04223045042400CF62FC /* adguard-hide-document-referrer.js */; };
+		A1ED04443045042400CF62FC /* install.js in Resources */ = {isa = PBXBuildFile; fileRef = A1ED04233045042400CF62FC /* install.js */; };
+		A1ED04453045042400CF62FC /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = A1ED04243045042400CF62FC /* manifest.json */; };
+		A1ED04463045042400CF62FC /* bilibili-capability-content.js in Resources */ = {isa = PBXBuildFile; fileRef = A1ED04253045042400CF62FC /* bilibili-capability-content.js */; };
+		A1ED04473045042400CF62FC /* safari-main-world-bootstrap.js in Resources */ = {isa = PBXBuildFile; fileRef = A1ED04263045042400CF62FC /* safari-main-world-bootstrap.js */; };
+		A1ED04483045042400CF62FC /* adguard-gpc.js in Resources */ = {isa = PBXBuildFile; fileRef = A1ED04273045042400CF62FC /* adguard-gpc.js */; };
+		A1ED04493045042400CF62FC /* _locales in Resources */ = {isa = PBXBuildFile; fileRef = A1ED04283045042400CF62FC /* _locales */; };
+		A1ED044A3045042400CF62FC /* gamepad-content.js in Resources */ = {isa = PBXBuildFile; fileRef = A1ED04293045042400CF62FC /* gamepad-content.js */; };
+		A1ED044B3045042400CF62FC /* content.js in Resources */ = {isa = PBXBuildFile; fileRef = A1ED042A3045042400CF62FC /* content.js */; };
+		A1ED044C3045042400CF62FC /* re2.wasm in Resources */ = {isa = PBXBuildFile; fileRef = A1ED042B3045042400CF62FC /* re2.wasm */; };
+		A1ED044D3045042400CF62FC /* assistant.html in Resources */ = {isa = PBXBuildFile; fileRef = A1ED042C3045042400CF62FC /* assistant.html */; };
+		A1ED044E3045042400CF62FC /* vendor in Resources */ = {isa = PBXBuildFile; fileRef = A1ED042D3045042400CF62FC /* vendor */; };
+		A1ED044F3045042400CF62FC /* theme-content.js in Resources */ = {isa = PBXBuildFile; fileRef = A1ED042E3045042400CF62FC /* theme-content.js */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A1ED03FD3045042300CF62FC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A1ED03D63045042200CF62FC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A1ED03FA3045042300CF62FC;
+			remoteInfo = "Card Master iPad Extension";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A1ED04093045042300CF62FC /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			dstPath = "";
+			dstSubfolder = PlugIns;
+			files = (
+				A1ED03FC3045042300CF62FC /* Card Master iPad Extension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		A1ED03DE3045042200CF62FC /* Card Master iPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Card Master iPad.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1ED03E13045042200CF62FC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		A1ED03E53045042200CF62FC /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = Base.lproj/Main.html; sourceTree = "<group>"; };
+		A1ED03E73045042200CF62FC /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		A1ED03E93045042200CF62FC /* Style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = Style.css; sourceTree = "<group>"; };
+		A1ED03EB3045042200CF62FC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		A1ED03ED3045042200CF62FC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		A1ED03F03045042200CF62FC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		A1ED03F33045042200CF62FC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		A1ED03F53045042300CF62FC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A1ED03F63045042300CF62FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A1ED03FB3045042300CF62FC /* Card Master iPad Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Card Master iPad Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1ED04003045042300CF62FC /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
+		A1ED04023045042300CF62FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A1ED040E3045042400CF62FC /* filters */ = {isa = PBXFileReference; lastKnownFileType = folder; name = filters; path = Resources/filters; sourceTree = "<group>"; };
+		A1ED040F3045042400CF62FC /* install.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = install.html; path = Resources/install.html; sourceTree = "<group>"; };
+		A1ED04103045042400CF62FC /* bilibili-recommendation-proxy.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "bilibili-recommendation-proxy.js"; path = "Resources/bilibili-recommendation-proxy.js"; sourceTree = "<group>"; };
+		A1ED04113045042400CF62FC /* theme-runtime.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "theme-runtime.js"; path = "Resources/theme-runtime.js"; sourceTree = "<group>"; };
+		A1ED04123045042400CF62FC /* theme-proxy.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "theme-proxy.js"; path = "Resources/theme-proxy.js"; sourceTree = "<group>"; };
+		A1ED04133045042400CF62FC /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; name = LICENSE; path = Resources/LICENSE; sourceTree = "<group>"; };
+		A1ED04143045042400CF62FC /* licenses */ = {isa = PBXFileReference; lastKnownFileType = folder; name = licenses; path = Resources/licenses; sourceTree = "<group>"; };
+		A1ED04153045042400CF62FC /* background.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = background.js; path = Resources/background.js; sourceTree = "<group>"; };
+		A1ED04163045042400CF62FC /* adguard-cosmetic-runtime.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "adguard-cosmetic-runtime.js"; path = "Resources/adguard-cosmetic-runtime.js"; sourceTree = "<group>"; };
+		A1ED04173045042400CF62FC /* web-accessible-resources */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "web-accessible-resources"; path = "Resources/web-accessible-resources"; sourceTree = "<group>"; };
+		A1ED04183045042400CF62FC /* assistant-surface.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "assistant-surface.js"; path = "Resources/assistant-surface.js"; sourceTree = "<group>"; };
+		A1ED04193045042400CF62FC /* media-speed-proxy.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "media-speed-proxy.js"; path = "Resources/media-speed-proxy.js"; sourceTree = "<group>"; };
+		A1ED041A3045042400CF62FC /* THIRD_PARTY_NOTICES.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = THIRD_PARTY_NOTICES.md; path = Resources/THIRD_PARTY_NOTICES.md; sourceTree = "<group>"; };
+		A1ED041B3045042400CF62FC /* library.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = library.js; path = Resources/library.js; sourceTree = "<group>"; };
+		A1ED041C3045042400CF62FC /* gamepad-control-content.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "gamepad-control-content.js"; path = "Resources/gamepad-control-content.js"; sourceTree = "<group>"; };
+		A1ED041D3045042400CF62FC /* adguard-runtime.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "adguard-runtime.js"; path = "Resources/adguard-runtime.js"; sourceTree = "<group>"; };
+		A1ED041E3045042400CF62FC /* project-assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "project-assets"; path = "Resources/project-assets"; sourceTree = "<group>"; };
+		A1ED041F3045042400CF62FC /* safari-userscript-runtime.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "safari-userscript-runtime.js"; path = "Resources/safari-userscript-runtime.js"; sourceTree = "<group>"; };
+		A1ED04203045042400CF62FC /* media-speed-content.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "media-speed-content.js"; path = "Resources/media-speed-content.js"; sourceTree = "<group>"; };
+		A1ED04213045042400CF62FC /* adguard-content.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "adguard-content.js"; path = "Resources/adguard-content.js"; sourceTree = "<group>"; };
+		A1ED04223045042400CF62FC /* adguard-hide-document-referrer.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "adguard-hide-document-referrer.js"; path = "Resources/adguard-hide-document-referrer.js"; sourceTree = "<group>"; };
+		A1ED04233045042400CF62FC /* install.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = install.js; path = Resources/install.js; sourceTree = "<group>"; };
+		A1ED04243045042400CF62FC /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.json; path = Resources/manifest.json; sourceTree = "<group>"; };
+		A1ED04253045042400CF62FC /* bilibili-capability-content.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "bilibili-capability-content.js"; path = "Resources/bilibili-capability-content.js"; sourceTree = "<group>"; };
+		A1ED04263045042400CF62FC /* safari-main-world-bootstrap.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "safari-main-world-bootstrap.js"; path = "Resources/safari-main-world-bootstrap.js"; sourceTree = "<group>"; };
+		A1ED04273045042400CF62FC /* adguard-gpc.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "adguard-gpc.js"; path = "Resources/adguard-gpc.js"; sourceTree = "<group>"; };
+		A1ED04283045042400CF62FC /* _locales */ = {isa = PBXFileReference; lastKnownFileType = folder; name = _locales; path = Resources/_locales; sourceTree = "<group>"; };
+		A1ED04293045042400CF62FC /* gamepad-content.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "gamepad-content.js"; path = "Resources/gamepad-content.js"; sourceTree = "<group>"; };
+		A1ED042A3045042400CF62FC /* content.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = content.js; path = Resources/content.js; sourceTree = "<group>"; };
+		A1ED042B3045042400CF62FC /* re2.wasm */ = {isa = PBXFileReference; lastKnownFileType = file; name = re2.wasm; path = Resources/re2.wasm; sourceTree = "<group>"; };
+		A1ED042C3045042400CF62FC /* assistant.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = assistant.html; path = Resources/assistant.html; sourceTree = "<group>"; };
+		A1ED042D3045042400CF62FC /* vendor */ = {isa = PBXFileReference; lastKnownFileType = folder; name = vendor; path = Resources/vendor; sourceTree = "<group>"; };
+		A1ED042E3045042400CF62FC /* theme-content.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "theme-content.js"; path = "Resources/theme-content.js"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A1ED03DB3045042200CF62FC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
+		};
+		A1ED03F83045042300CF62FC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A1ED03D53045042200CF62FC = {
+			isa = PBXGroup;
+			children = (
+				A1ED03E03045042200CF62FC /* Card Master iPad */,
+				A1ED03FF3045042300CF62FC /* Card Master iPad Extension */,
+				A1ED03DF3045042200CF62FC /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A1ED03DF3045042200CF62FC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A1ED03DE3045042200CF62FC /* Card Master iPad.app */,
+				A1ED03FB3045042300CF62FC /* Card Master iPad Extension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A1ED03E03045042200CF62FC /* Card Master iPad */ = {
+			isa = PBXGroup;
+			children = (
+				A1ED03E13045042200CF62FC /* AppDelegate.swift */,
+				A1ED03EB3045042200CF62FC /* SceneDelegate.swift */,
+				A1ED03ED3045042200CF62FC /* ViewController.swift */,
+				A1ED03EF3045042200CF62FC /* LaunchScreen.storyboard */,
+				A1ED03F23045042200CF62FC /* Main.storyboard */,
+				A1ED03F53045042300CF62FC /* Assets.xcassets */,
+				A1ED03F63045042300CF62FC /* Info.plist */,
+				A1ED03E33045042200CF62FC /* Resources */,
+			);
+			path = "Card Master iPad";
+			sourceTree = "<group>";
+		};
+		A1ED03E33045042200CF62FC /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A1ED03E43045042200CF62FC /* Main.html */,
+				A1ED03E73045042200CF62FC /* Icon.png */,
+				A1ED03E93045042200CF62FC /* Style.css */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		A1ED03FF3045042300CF62FC /* Card Master iPad Extension */ = {
+			isa = PBXGroup;
+			children = (
+				A1ED040D3045042300CF62FC /* Resources */,
+				A1ED04003045042300CF62FC /* SafariWebExtensionHandler.swift */,
+				A1ED04023045042300CF62FC /* Info.plist */,
+			);
+			path = "Card Master iPad Extension";
+			sourceTree = "<group>";
+		};
+		A1ED040D3045042300CF62FC /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A1ED040E3045042400CF62FC /* filters */,
+				A1ED040F3045042400CF62FC /* install.html */,
+				A1ED04103045042400CF62FC /* bilibili-recommendation-proxy.js */,
+				A1ED04113045042400CF62FC /* theme-runtime.js */,
+				A1ED04123045042400CF62FC /* theme-proxy.js */,
+				A1ED04133045042400CF62FC /* LICENSE */,
+				A1ED04143045042400CF62FC /* licenses */,
+				A1ED04153045042400CF62FC /* background.js */,
+				A1ED04163045042400CF62FC /* adguard-cosmetic-runtime.js */,
+				A1ED04173045042400CF62FC /* web-accessible-resources */,
+				A1ED04183045042400CF62FC /* assistant-surface.js */,
+				A1ED04193045042400CF62FC /* media-speed-proxy.js */,
+				A1ED041A3045042400CF62FC /* THIRD_PARTY_NOTICES.md */,
+				A1ED041B3045042400CF62FC /* library.js */,
+				A1ED041C3045042400CF62FC /* gamepad-control-content.js */,
+				A1ED041D3045042400CF62FC /* adguard-runtime.js */,
+				A1ED041E3045042400CF62FC /* project-assets */,
+				A1ED041F3045042400CF62FC /* safari-userscript-runtime.js */,
+				A1ED04203045042400CF62FC /* media-speed-content.js */,
+				A1ED04213045042400CF62FC /* adguard-content.js */,
+				A1ED04223045042400CF62FC /* adguard-hide-document-referrer.js */,
+				A1ED04233045042400CF62FC /* install.js */,
+				A1ED04243045042400CF62FC /* manifest.json */,
+				A1ED04253045042400CF62FC /* bilibili-capability-content.js */,
+				A1ED04263045042400CF62FC /* safari-main-world-bootstrap.js */,
+				A1ED04273045042400CF62FC /* adguard-gpc.js */,
+				A1ED04283045042400CF62FC /* _locales */,
+				A1ED04293045042400CF62FC /* gamepad-content.js */,
+				A1ED042A3045042400CF62FC /* content.js */,
+				A1ED042B3045042400CF62FC /* re2.wasm */,
+				A1ED042C3045042400CF62FC /* assistant.html */,
+				A1ED042D3045042400CF62FC /* vendor */,
+				A1ED042E3045042400CF62FC /* theme-content.js */,
+			);
+			name = Resources;
+			path = "Card Master iPad Extension";
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A1ED03DD3045042200CF62FC /* Card Master iPad */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A1ED040A3045042300CF62FC /* Build configuration list for PBXNativeTarget "Card Master iPad" */;
+			buildPhases = (
+				A1ED03DA3045042200CF62FC /* Sources */,
+				A1ED03DB3045042200CF62FC /* Frameworks */,
+				A1ED03DC3045042200CF62FC /* Resources */,
+				A1ED04093045042300CF62FC /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A1ED03FE3045042300CF62FC /* PBXTargetDependency */,
+			);
+			name = "Card Master iPad";
+			productName = "Card Master iPad";
+			productReference = A1ED03DE3045042200CF62FC /* Card Master iPad.app */;
+			productType = "com.apple.product-type.application";
+		};
+		A1ED03FA3045042300CF62FC /* Card Master iPad Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A1ED04063045042300CF62FC /* Build configuration list for PBXNativeTarget "Card Master iPad Extension" */;
+			buildPhases = (
+				A1ED03F73045042300CF62FC /* Sources */,
+				A1ED03F83045042300CF62FC /* Frameworks */,
+				A1ED03F93045042300CF62FC /* Resources */,
+			);
+			buildRules = (
+			);
+			name = "Card Master iPad Extension";
+			productName = "Card Master iPad Extension";
+			productReference = A1ED03FB3045042300CF62FC /* Card Master iPad Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A1ED03D63045042200CF62FC /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2700;
+				LastUpgradeCheck = 2700;
+				TargetAttributes = {
+					A1ED03DD3045042200CF62FC = {
+						CreatedOnToolsVersion = 27.0;
+					};
+					A1ED03FA3045042300CF62FC = {
+						CreatedOnToolsVersion = 27.0;
+					};
+				};
+			};
+			buildConfigurationList = A1ED03D93045042200CF62FC /* Build configuration list for PBXProject "Card Master iPad" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A1ED03D53045042200CF62FC;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = A1ED03DF3045042200CF62FC /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A1ED03DD3045042200CF62FC /* Card Master iPad */,
+				A1ED03FA3045042300CF62FC /* Card Master iPad Extension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A1ED03DC3045042200CF62FC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+				A1ED03E83045042200CF62FC /* Icon.png in Resources */,
+				A1ED03F43045042200CF62FC /* Main.storyboard in Resources */,
+				A1ED03F13045042200CF62FC /* LaunchScreen.storyboard in Resources */,
+				A1ED03E63045042200CF62FC /* Main.html in Resources */,
+				A1ED04033045042300CF62FC /* Assets.xcassets in Resources */,
+				A1ED03EA3045042200CF62FC /* Style.css in Resources */,
+			);
+		};
+		A1ED03F93045042300CF62FC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+				A1ED04493045042400CF62FC /* _locales in Resources */,
+				A1ED04483045042400CF62FC /* adguard-gpc.js in Resources */,
+				A1ED04363045042400CF62FC /* background.js in Resources */,
+				A1ED04383045042400CF62FC /* web-accessible-resources in Resources */,
+				A1ED04353045042400CF62FC /* licenses in Resources */,
+				A1ED04373045042400CF62FC /* adguard-cosmetic-runtime.js in Resources */,
+				A1ED044F3045042400CF62FC /* theme-content.js in Resources */,
+				A1ED04343045042400CF62FC /* LICENSE in Resources */,
+				A1ED04393045042400CF62FC /* assistant-surface.js in Resources */,
+				A1ED043E3045042400CF62FC /* adguard-runtime.js in Resources */,
+				A1ED04303045042400CF62FC /* install.html in Resources */,
+				A1ED04463045042400CF62FC /* bilibili-capability-content.js in Resources */,
+				A1ED044C3045042400CF62FC /* re2.wasm in Resources */,
+				A1ED043F3045042400CF62FC /* project-assets in Resources */,
+				A1ED044B3045042400CF62FC /* content.js in Resources */,
+				A1ED043B3045042400CF62FC /* THIRD_PARTY_NOTICES.md in Resources */,
+				A1ED04333045042400CF62FC /* theme-proxy.js in Resources */,
+				A1ED043A3045042400CF62FC /* media-speed-proxy.js in Resources */,
+				A1ED04443045042400CF62FC /* install.js in Resources */,
+				A1ED04473045042400CF62FC /* safari-main-world-bootstrap.js in Resources */,
+				A1ED043C3045042400CF62FC /* library.js in Resources */,
+				A1ED044E3045042400CF62FC /* vendor in Resources */,
+				A1ED04403045042400CF62FC /* safari-userscript-runtime.js in Resources */,
+				A1ED04433045042400CF62FC /* adguard-hide-document-referrer.js in Resources */,
+				A1ED044A3045042400CF62FC /* gamepad-content.js in Resources */,
+				A1ED04313045042400CF62FC /* bilibili-recommendation-proxy.js in Resources */,
+				A1ED04413045042400CF62FC /* media-speed-content.js in Resources */,
+				A1ED043D3045042400CF62FC /* gamepad-control-content.js in Resources */,
+				A1ED04423045042400CF62FC /* adguard-content.js in Resources */,
+				A1ED04453045042400CF62FC /* manifest.json in Resources */,
+				A1ED042F3045042400CF62FC /* filters in Resources */,
+				A1ED04323045042400CF62FC /* theme-runtime.js in Resources */,
+				A1ED044D3045042400CF62FC /* assistant.html in Resources */,
+			);
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A1ED03DA3045042200CF62FC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+				A1ED03EE3045042200CF62FC /* ViewController.swift in Sources */,
+				A1ED03E23045042200CF62FC /* AppDelegate.swift in Sources */,
+				A1ED03EC3045042200CF62FC /* SceneDelegate.swift in Sources */,
+			);
+		};
+		A1ED03F73045042300CF62FC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+				A1ED04013045042300CF62FC /* SafariWebExtensionHandler.swift in Sources */,
+			);
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A1ED03FE3045042300CF62FC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A1ED03FA3045042300CF62FC /* Card Master iPad Extension */;
+			targetProxy = A1ED03FD3045042300CF62FC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		A1ED03E43045042200CF62FC /* Main.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A1ED03E53045042200CF62FC /* Base */,
+			);
+			name = Main.html;
+			sourceTree = "<group>";
+		};
+		A1ED03EF3045042200CF62FC /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A1ED03F03045042200CF62FC /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		A1ED03F23045042200CF62FC /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A1ED03F33045042200CF62FC /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		A1ED04043045042300CF62FC /* Debug configuration for PBXProject "Card Master iPad" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		A1ED04053045042300CF62FC /* Release configuration for PBXProject "Card Master iPad" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A1ED04073045042300CF62FC /* Debug configuration for PBXNativeTarget "Card Master iPad Extension" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 6;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Card Master iPad Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Card Master iPad Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 0.2.6;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.stanshen123.cardmastersafari.ios.Extension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		A1ED04083045042300CF62FC /* Release configuration for PBXNativeTarget "Card Master iPad Extension" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 6;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Card Master iPad Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Card Master iPad Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 0.2.6;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.stanshen123.cardmastersafari.ios.Extension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Release;
+		};
+		A1ED040B3045042300CF62FC /* Debug configuration for PBXNativeTarget "Card Master iPad" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 6;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Card Master iPad/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Card Master iPad";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.2.6;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.stanshen123.cardmastersafari.ios;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		A1ED040C3045042300CF62FC /* Release configuration for PBXNativeTarget "Card Master iPad" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 6;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Card Master iPad/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Card Master iPad";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.2.6;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.stanshen123.cardmastersafari.ios;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A1ED03D93045042200CF62FC /* Build configuration list for PBXProject "Card Master iPad" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1ED04043045042300CF62FC /* Debug configuration for PBXProject "Card Master iPad" */,
+				A1ED04053045042300CF62FC /* Release configuration for PBXProject "Card Master iPad" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		A1ED04063045042300CF62FC /* Build configuration list for PBXNativeTarget "Card Master iPad Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1ED04073045042300CF62FC /* Debug configuration for PBXNativeTarget "Card Master iPad Extension" */,
+				A1ED04083045042300CF62FC /* Release configuration for PBXNativeTarget "Card Master iPad Extension" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		A1ED040A3045042300CF62FC /* Build configuration list for PBXNativeTarget "Card Master iPad" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1ED040B3045042300CF62FC /* Debug configuration for PBXNativeTarget "Card Master iPad" */,
+				A1ED040C3045042300CF62FC /* Release configuration for PBXNativeTarget "Card Master iPad" */,
+			);
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A1ED03D63045042200CF62FC /* Project object */;
+	validationLevel = 1;
+}

@@ -1,0 +1,273 @@
+<div align="center">
+  <img
+    src="./assets/userscript-deck/visual/action-icons/card-master-logo.png"
+    width="96"
+    height="96"
+    alt="卡牌大师 Logo"
+  />
+
+  <h1>卡牌大师</h1>
+
+  <p><a href="https://www.bilibili.com/video/BV12PtF6mEr4/"><strong>观看林亦LYi 官方介绍视频</strong></a></p>
+
+  <p><strong>以游戏化卡牌统一管理用户脚本与网页能力。</strong></p>
+  <p>AI 脚本生成 · 内容过滤 · 深色主题 · 媒体控制 · 视频增强 · 游戏手柄</p>
+
+  <p>
+    <a href="https://github.com/LYiHub/Card-master-browser-extension-public/releases/latest">
+      <img src="https://img.shields.io/badge/version-0.2.6-7c3aed?style=flat-square" alt="版本 0.2.6" />
+    </a>
+    <a href="./LICENSE">
+      <img src="https://img.shields.io/badge/license-GPL--3.0--only-22c55e?style=flat-square" alt="GPL-3.0-only" />
+    </a>
+    <img src="https://img.shields.io/badge/platform-Chromium%20%7C%20Firefox%20%7C%20Safari-334155?style=flat-square" alt="支持 Chromium、Firefox 和 Safari" />
+  </p>
+
+  <p>
+    <a href="https://github.com/LYiHub/Card-master-browser-extension-public/releases/latest"><strong>下载发布版</strong></a>
+    ·
+    <a href="https://github.com/LYiHub/Card-master-browser-extension-public/issues">问题反馈</a>
+    ·
+    <a href="https://space.bilibili.com/4401694">林亦LYi B站主页</a>
+    ·
+    <a href="./THIRD_PARTY_NOTICES.md">第三方声明</a>
+  </p>
+</div>
+
+> [!IMPORTANT]
+> ## 非官方 Safari／iPadOS 个人构建 Fork
+>
+> 本仓库基于上游 [LYiHub/Card-master-browser-extension-public](https://github.com/LYiHub/Card-master-browser-extension-public) 的 **v0.2.6**，保留其 GPL-3.0-only 授权、第三方声明和完整来源归属。它不隶属于、未获授权于，也不代表上游作者林亦LYi。
+>
+> 本 Fork 的改动仅为个人 Safari 使用场景：补齐 macOS Safari 与 iPadOS Safari 的 Xcode 封装、加入 Safari Declarative Net Request 规则兼容处理，并提供 WebDAV 同步等上游 v0.2.6 功能。它没有经过 Apple 公证，也不是 App Store 产品；请自行审阅代码、使用自己的 Apple 开发者签名，并不要将由他人 Developer ID 签名的二进制文件重新分发。
+
+## Fork 说明
+
+上游仓库、发布说明与问题反馈：<https://github.com/LYiHub/Card-master-browser-extension-public>。
+
+相对上游 v0.2.6，本 Fork 额外包含：
+
+- Safari 静态和运行期 DNR 规则相容处理，避免部分 AdGuard 规则导致整个 Safari ruleset 无法启用。
+- `safari-ios/Card Master iPad/`：可在 Xcode 中签名并部署到自己的 iPad 的 Safari Web Extension 容器。
+- 保留 Safari 的平台限制：没有新标签页接管、浏览历史读取或「顺手牵羊」媒体下载能力。
+
+构建前，请在两个 Xcode 项目中选择自己的 Development Team，并使用自己唯一的 Bundle Identifier；仓库中的标识符仅为示例，不能与其他开发者共用。
+
+## 视觉一览
+
+<p align="center">
+  <img src="./.github/assets/card-master-overview.webp" width="100%" alt="卡牌大师界面" />
+</p>
+
+<p align="center">
+  <img src="./.github/assets/card-back.webp" width="23%" alt="卡牌大师卡背" />
+  <img src="./.github/assets/card-kill.webp" width="23%" alt="杀" />
+  <img src="./.github/assets/card-time-dragon.webp" width="23%" alt="时光飞龙" />
+  <img src="./.github/assets/card-script-apprentice.webp" width="23%" alt="了不起的脚本小子" />
+</p>
+
+<p align="center"><sub>卡背 · 杀 · 时光飞龙 · 了不起的脚本小子</sub></p>
+
+## 核心能力
+
+- 📜 **用户脚本** — 安装、导入、更新、启停、隐藏；新装默认启用
+- ✨ **AI 脚本工坊** — 搜索、创建、解释、修复；兼容 Responses 与 Chat Completions
+- 🖼️ **新标签页** — AI 每日回顾壁纸、电子相框和搜索 · *Chromium / Firefox*
+- ⚔️ **杀** — 点选隐藏广告或其他内容
+- 🌙 **暗夜降临** — 重算页面明暗 · 新装默认停用
+- 🐉 **时光飞龙** — 统一调节网页音视频速度
+- 🐑 **顺手牵羊** — 发现并取得页面媒体 · *Chromium / Firefox*，新装默认停用
+- 🎬 **视频增强** — 流量探险家、合成大弹幕、绯红空降，以及 B 站 / YouTube SponsorBlock
+- 🎮 **科乐美秘技** — 鼠标、键盘、手柄一套操作；含屏幕键盘、拼音和语音
+- ☁️ **WebDAV 同步** — 在「设置 → 数据管理 → 跨设备同步」连接自己的服务，统一同步脚本、卡牌与插件配置，支持合并预览、冲突选择和历史恢复。
+
+同一套核心代码打 Chromium、Firefox、Safari 三份包。
+
+## 安装
+
+到 [Releases](https://github.com/LYiHub/Card-master-browser-extension-public/releases/latest)
+下载对应 zip，并核对 `SHA256SUMS.txt`。
+
+> 这些 zip **不是安装包**。Chromium 内核浏览器和 Firefox 必须先解压，再加载那个
+> 带 `manifest.json` 的文件夹。
+
+| 平台 | 产物 | 加载方式 |
+| --- | --- | --- |
+| Chromium（Chrome、Edge、Brave、Arc 等） | `card-master-v*-chromium.zip` | 解压 → 加载未打包扩展 |
+| Chromium（保留浏览器新标签页） | `card-master-v*-chromium-browser-new-tab.zip` | 解压 → 加载未打包扩展 |
+| Firefox | `card-master-v*-firefox.zip` | 解压 → 临时载入附加组件 |
+| Firefox（保留浏览器新标签页） | `card-master-v*-firefox-browser-new-tab.zip` | 解压 → 临时载入附加组件 |
+| macOS Safari | 暂不提供下载 | 等待苹果公证完成，进展见 [Issue #2](https://github.com/LYiHub/Card-master-browser-extension-public/issues/2) |
+
+### 保留浏览器原生新标签页
+
+请选择文件名带 `browser-new-tab` 的包。它与同平台标准版仅在 `manifest.json` 的新标签页接管声明上不同，不接管浏览器新标签页，普通网页的卡牌、脚本与 AI 功能照常使用。浏览器原生页面受浏览器权限限制，不显示网页牌阵；如果还有其他新标签页扩展接管，需要在浏览器中另行调整。
+
+已安装卡牌大师时，将对应包完整解压并覆盖到**原安装目录**（其中直接包含 `manifest.json`），在扩展管理页重新加载，再新建标签页。不要卸载扩展、清除存储或改到新目录重新安装，以免丢失原扩展身份对应的数据。切回标准版也使用同样的方法，原有牌库、API 配置和自定义网址设置会保留。
+
+设置中的“使用卡牌大师页面”只用于清空标准版的自定义网址；恢复浏览器原生页需要切换上述安装包。保留浏览器新标签页版仍可从扩展设置的“打开卡牌大师页面”入口手动打开卡牌大师页面。
+
+### Chromium
+
+1. 解压 `card-master-v*-chromium.zip`。
+2. 打开扩展管理页（Chrome 为 `chrome://extensions`，其他 Chromium 浏览器路径类似）。
+3. 打开右上角「开发者模式」。
+4. 「加载未打包的扩展程序」→ 选中解压后的文件夹。
+5. 打开扩展详情，开启「允许运行用户脚本」，再重新加载扩展。
+
+> **不打开「允许运行用户脚本」，所有用户脚本都不会跑**，包括预装脚本。
+> 路径：扩展管理页 → 卡牌大师 → 详情。
+
+<details>
+<summary>查看开关位置</summary>
+
+<p align="center">
+  <img
+    src="./.github/assets/allow-user-scripts.webp"
+    width="100%"
+    alt="在卡牌大师扩展详情页开启「允许运行用户脚本」"
+  />
+</p>
+
+</details>
+
+某个网站显示「未允许」时，点扩展图标或详情里的「有权访问的网站」，允许当前站或所有站。
+
+### Firefox
+
+解压后打开 `about:debugging#/runtime/this-firefox`，选「临时载入附加组件」，
+再选目录里的 `manifest.json`。弹出用户脚本权限时请允许。
+
+### Safari
+
+> 当前版本暂不提供 Safari 下载，请勿使用旧版未公证预览包或关闭系统安全检查。
+> 以下权限说明供源码构建使用，正式分发恢复后同样适用。
+
+本 Fork 提供 Safari 的源码构建项目，而不是官方发行包：macOS 项目位于
+`safari/Card Master/`，iPadOS 项目位于 `safari-ios/Card Master iPad/`。在 Xcode
+选择自己的签名团队和唯一 Bundle Identifier 后，分别 archive／安装即可。
+
+iPadOS 项目不提交可再生的扩展资源。首次用 Xcode 构建 iPadOS 前，先在仓库根目录运行：
+
+```bash
+pnpm extension:package --platform=safari
+rsync -a extension-dist/safari/ "safari-ios/Card Master iPad/Card Master iPad Extension/Resources/"
+```
+
+这会从同一份已审阅的源码生成 iPadOS 需要的 Safari 资源，避免将大型编译产物和第三方副本纳入版本控制。
+
+打开 `Card Master.app` 之后，还要在 Safari 里勾完权限。只开 App、不授权网站，
+网页上不会出现牌阵。
+
+1. Safari → 设置 → 扩展 → 勾选「卡牌大师」。
+2. 点 **在每个网站上始终允许…**，确认对所有网站允许。
+3. 更新或重装后，先完全退出 Safari 再打开。
+
+牌阵快捷键是 <kbd>⌘⇧E</kbd>。Safari 没有 Chromium 那项用户脚本开关，脚本走扩展自带注入。
+
+<details>
+<summary>查看「在每个网站上始终允许」位置</summary>
+
+<p align="center">
+  <img
+    src="./.github/assets/safari-allow-all-websites.webp"
+    width="100%"
+    alt="在 Safari 扩展设置中点击「在每个网站上始终允许」"
+  />
+</p>
+
+</details>
+
+<details>
+<summary>Safari 没有新标签页和顺手牵羊</summary>
+
+Safari 网页扩展没有 `history`、`bookmarks`、`topSites`、`downloads` 和完整
+`webRequest`。每日回顾读不到浏览历史，顺手牵羊也没有可运行的上游实现，
+所以这两张卡和相关页面都不会出现。不是漏装。
+
+</details>
+
+## 从源码构建
+
+需要 Node.js 22+ 和 pnpm 11.18.0。
+
+```bash
+pnpm install --frozen-lockfile
+pnpm check
+pnpm extension:package --platform=all
+```
+
+产物在 `extension-dist/`。Chromium 和 Firefox 构建同时生成对应的 `*-browser-new-tab/` 目录，用于保留浏览器新标签页；与同平台标准版共用全部运行时文件。
+
+## 参与贡献
+
+用 [Issues](https://github.com/LYiHub/Card-master-browser-extension-public/issues)
+提问题和建议。提交代码前请跑通 `pnpm check`，并保持改动范围可验证。
+
+## 致谢
+
+直接依赖、嵌入运行时、预装脚本和许可证见
+[`upstreams.json`](./upstreams.json) 与
+[`THIRD_PARTY_NOTICES.md`](./THIRD_PARTY_NOTICES.md)。
+
+<details>
+<summary>查看完整第三方项目列表</summary>
+
+- **内容过滤与页面能力**：
+  [AdGuard tsurlfilter](https://github.com/AdguardTeam/tsurlfilter)、
+  [AdGuard DNR Rulesets](https://github.com/AdguardTeam/DnrRulesets)、
+  [Dark Reader](https://github.com/darkreader/darkreader)、
+  [Video Speed Controller](https://github.com/igrigorik/videospeed)、
+  [Speeder](https://github.com/SoPat712/Speeder)、
+  [Hayame](https://github.com/atani/hayame)、
+  [Cat Catch](https://github.com/xifangczy/cat-catch)。
+- **用户脚本平台参考**：
+  [Violentmonkey](https://github.com/violentmonkey/violentmonkey)、
+  [Tampermonkey historical source](https://github.com/Tampermonkey/tampermonkey)、
+  [ScriptCat](https://github.com/scriptscat/scriptcat)。
+- **Bilibili 与 YouTube**：
+  [TabulaBili](https://github.com/tjsky/TabulaBili)、
+  [pakku.js](https://github.com/xmcp/pakku.js)、
+  [BilibiliSponsorBlock](https://github.com/hanydd/BilibiliSponsorBlock)、
+  [SponsorBlock](https://github.com/ajayyy/SponsorBlock)、
+  [BiliKit](https://github.com/shiinayane/BiliKit)、
+  [Bilibili Favorites Fix](https://github.com/crnkv/bilibili-favorites-fix-cerenkov-mod)、
+  [Copying Lifted](https://github.com/canguser/hooker-js)。
+- **手柄、导航与输入**：
+  [Remapad](https://github.com/Shin-Aska/remapad)、
+  [Gaming Controller Tester](https://github.com/pmanikas/gaming-controller-tester)、
+  [Spatial Nav CSS](https://github.com/SauceTaster/spatial-nav-css)、
+  [Pinyin IME](https://github.com/catcherinsky/pinyin-ime)、
+  [Lumno](https://github.com/kubai087/lumno-extension)。
+- **运行时与工具链**：
+  [React](https://github.com/facebook/react)、
+  [Lucide](https://github.com/lucide-icons/lucide)、
+  [GSAP](https://github.com/greensock/GSAP)、
+  [Acorn](https://github.com/acornjs/acorn)、
+  [react-markdown](https://github.com/remarkjs/react-markdown)、
+  [remark](https://github.com/remarkjs/remark)、
+  [rehype](https://github.com/rehypejs/rehype)、
+  [tldts](https://github.com/remusao/tldts)、
+  [Cinzel](https://github.com/NDISCOVER/Cinzel)、
+  [TypeScript](https://github.com/microsoft/TypeScript)、
+  [Vite](https://github.com/vitejs/vite)、
+  [Vitest](https://github.com/vitest-dev/vitest)、
+  [Biome](https://github.com/biomejs/biome)、
+  [esbuild](https://github.com/evanw/esbuild)、
+  [sharp](https://github.com/lovell/sharp)。
+
+卡牌式信息层级、牌阵和动效语言参考了包括 GWENT 在内的收藏卡牌游戏界面研究。
+GWENT 及其相关名称、商标与官方素材归 CD PROJEKT RED 所有；Card Master 与其
+不存在从属、授权或背书关系。
+
+</details>
+
+## 关于林亦LYi
+
+卡牌大师由 [林亦LYi](https://space.bilibili.com/4401694) 团队策划与开发，
+是林亦LYi 自媒体内容与开源实验的一部分。欢迎前往 B 站主页关注我们的视频与后续项目。
+
+## 许可证
+
+代码与第一方媒体资产以 [GPL-3.0-only](./LICENSE) 发布。第三方代码、数据、字体与预装脚本仍受各自许可证约束，见
+[`THIRD_PARTY_NOTICES.md`](./THIRD_PARTY_NOTICES.md)。
