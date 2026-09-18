@@ -1027,6 +1027,7 @@ function patchSafariStaticRules(rules) {
     const condition = sourceRule.condition;
     if (
       action.type === 'modifyHeaders' ||
+      Array.isArray(condition.tabIds) ||
       Array.isArray(condition.requestHeaders) ||
       Array.isArray(condition.responseHeaders) ||
       Array.isArray(condition.topDomains) ||
@@ -1048,6 +1049,42 @@ function patchSafariStaticRules(rules) {
       }
       if (supported.length === 0) delete rule.condition[key];
       else rule.condition[key] = supported;
+      changed = true;
+    }
+    if (rule.action.type === 'allowAllRequests') {
+      const resourceTypes = rule.condition.resourceTypes;
+      if (
+        !Array.isArray(resourceTypes) ||
+        !resourceTypes.includes('main_frame')
+      ) {
+        removed += 1;
+        continue;
+      }
+      if (resourceTypes.length !== 1 || resourceTypes[0] !== 'main_frame') {
+        rule.condition.resourceTypes = ['main_frame'];
+        changed = true;
+      }
+    }
+    if (Array.isArray(rule.condition.requestMethods)) {
+      delete rule.condition.requestMethods;
+      changed = true;
+    }
+    if (Array.isArray(rule.condition.initiatorDomains)) {
+      rule.condition.domains = rule.condition.initiatorDomains;
+      delete rule.condition.initiatorDomains;
+      changed = true;
+    }
+    if (Array.isArray(rule.condition.excludedInitiatorDomains)) {
+      rule.condition.excludedDomains = rule.condition.excludedInitiatorDomains;
+      delete rule.condition.excludedInitiatorDomains;
+      changed = true;
+    }
+    if (
+      rule.action.redirect?.regexSubstitution &&
+      Array.isArray(rule.condition.requestDomains)
+    ) {
+      rule.condition.domains = rule.condition.requestDomains;
+      delete rule.condition.requestDomains;
       changed = true;
     }
     if (
@@ -1946,8 +1983,7 @@ if (extensionTarget === 'safari') {
   }
   const safariProjectSource = await readFile(safariXcodeProject, 'utf8');
   const safariProjectContracts = [
-    'com.lyihub.cardmaster;',
-    'com.lyihub.cardmaster.Extension;',
+    'PRODUCT_BUNDLE_IDENTIFIER =',
     'DEVELOPMENT_TEAM = "";',
     `MARKETING_VERSION = ${projectMetadata.version};`,
     'MACOSX_DEPLOYMENT_TARGET = 13.3;',

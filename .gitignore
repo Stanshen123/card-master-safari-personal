@@ -29,6 +29,11 @@ refs/
 /scripts/prepare-media-speed-vfx.mjs
 /scripts/runtime-media-optimization.json
 /scripts/safari-alpha-vfx.mjs
-/safari/Card Master/Card Master/Assets.xcassets/AppIcon.appiconset/*.png
 /safari/Card Master/Card Master/Resources/Icon.png
+!/safari/Card Master/Card Master/Resources/Icon.png
+/safari-ios/Card Master iPad/Card Master iPad Extension/Resources-pre-0.2.1-sync-backup/
+/safari-ios/Card Master iPad/Card Master iPad Extension/Resources/
+/safari-ios/Card Master iPad/README-iPad-Dev.md
+/ipad-build/
+**/xcuserdata/
 .pnpm-store/

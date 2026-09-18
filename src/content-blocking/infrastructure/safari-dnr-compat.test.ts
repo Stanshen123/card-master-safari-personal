@@ -101,4 +101,32 @@ describe('Safari DNR compatibility', () => {
     expect(blockCondition).not.toHaveProperty('initiatorDomains');
     expect(blockCondition).not.toHaveProperty('excludedInitiatorDomains');
   });
+
+  it('keeps allowAllRequests limited to main-frame navigation', () => {
+    const normalized =
+      normalizeSafariDnrUpdate({
+        addRules: [
+          rule({
+            id: 7,
+            action: { type: 'allowAllRequests' },
+            condition: {
+              urlFilter: '*',
+              resourceTypes: ['main_frame', 'sub_frame'],
+              requestMethods: ['get'],
+            },
+          }),
+          rule({
+            id: 8,
+            action: { type: 'allowAllRequests' },
+            condition: { urlFilter: '*', resourceTypes: ['sub_frame'] },
+          }),
+        ],
+      }).addRules ?? [];
+
+    expect(normalized).toHaveLength(1);
+    expect(normalized[0]?.condition).toMatchObject({
+      resourceTypes: ['main_frame'],
+    });
+    expect(normalized[0]?.condition).not.toHaveProperty('requestMethods');
+  });
 });

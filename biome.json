@@ -10,6 +10,7 @@
       "!!dist",
       "!!extension-dist",
       "!!refs",
+      "!!safari-ios",
       "!!vendor"
     ]
   },

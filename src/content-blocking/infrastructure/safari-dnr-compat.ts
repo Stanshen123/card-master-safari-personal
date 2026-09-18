@@ -8,6 +8,7 @@ type SafariRuleCondition = DnrRule['condition'] & {
   excludedTopDomains?: string[];
   requestHeaders?: unknown[];
   responseHeaders?: unknown[];
+  requestMethods?: string[];
 };
 
 function withoutObjectResourceType(
@@ -33,6 +34,10 @@ function normalizeRule(rule: DnrRule): DnrRule | null {
     return null;
   }
 
+  if (condition.requestMethods) {
+    delete condition.requestMethods;
+  }
+
   const resourceTypes = withoutObjectResourceType(condition.resourceTypes);
   if (resourceTypes === null) return null;
   if (resourceTypes !== condition.resourceTypes) {
@@ -46,6 +51,11 @@ function normalizeRule(rule: DnrRule): DnrRule | null {
     delete condition.excludedResourceTypes;
   } else if (excludedResourceTypes !== condition.excludedResourceTypes) {
     condition.excludedResourceTypes = excludedResourceTypes;
+  }
+
+  if (normalized.action.type === 'allowAllRequests') {
+    if (!condition.resourceTypes?.includes('main_frame')) return null;
+    condition.resourceTypes = ['main_frame'];
   }
 
   if (

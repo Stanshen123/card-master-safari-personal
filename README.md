@@ -34,6 +34,25 @@
   </p>
 </div>
 
+> [!IMPORTANT]
+> ## 非官方 Safari／iPadOS 个人构建 Fork
+>
+> 本仓库基于上游 [LYiHub/Card-master-browser-extension-public](https://github.com/LYiHub/Card-master-browser-extension-public) 的 **v0.2.8**，保留其 GPL-3.0-only 授权、第三方声明和完整来源归属。它不隶属于、未获授权于，也不代表上游作者林亦LYi。
+>
+> 本 Fork 的改动仅为个人 Safari 使用场景：补齐 macOS Safari 与 iPadOS Safari 的 Xcode 封装、加入 Safari Declarative Net Request 规则兼容处理，并提供 WebDAV 同步等上游 v0.2.8 功能。它没有经过 Apple 公证，也不是 App Store 产品；请自行审阅代码、使用自己的 Apple 开发者签名，并不要将由他人 Developer ID 签名的二进制文件重新分发。
+
+## Fork 说明
+
+上游仓库、发布说明与问题反馈：<https://github.com/LYiHub/Card-master-browser-extension-public>。
+
+相对上游 v0.2.8，本 Fork 额外包含：
+
+- Safari 静态和运行期 DNR 规则相容处理，避免部分 AdGuard 规则导致整个 Safari ruleset 无法启用。
+- `safari-ios/Card Master iPad/`：可在 Xcode 中签名并部署到自己的 iPad 的 Safari Web Extension 容器。
+- 保留 Safari 的平台限制：没有新标签页接管、浏览历史读取或「顺手牵羊」媒体下载能力。
+
+构建前，请在两个 Xcode 项目中选择自己的 Development Team，并使用自己唯一的 Bundle Identifier；仓库中的标识符仅为示例，不能与其他开发者共用。
+
 ## 视觉一览
 
 <p align="center">
@@ -123,6 +142,19 @@
 
 > 当前版本暂不提供 Safari 下载，请勿使用旧版未公证预览包或关闭系统安全检查。
 > 以下权限说明供源码构建使用，正式分发恢复后同样适用。
+
+本 Fork 提供 Safari 的源码构建项目，而不是官方发行包：macOS 项目位于
+`safari/Card Master/`，iPadOS 项目位于 `safari-ios/Card Master iPad/`。在 Xcode
+选择自己的签名团队和唯一 Bundle Identifier 后，分别 archive／安装即可。
+
+iPadOS 项目不提交可再生的扩展资源。首次用 Xcode 构建 iPadOS 前，先在仓库根目录运行：
+
+```bash
+pnpm extension:package --platform=safari
+rsync -a extension-dist/safari/ "safari-ios/Card Master iPad/Card Master iPad Extension/Resources/"
+```
+
+这会从同一份已审阅的源码生成 iPadOS 需要的 Safari 资源，避免将大型编译产物和第三方副本纳入版本控制。
 
 打开 `Card Master.app` 之后，还要在 Safari 里勾完权限。只开 App、不授权网站，
 网页上不会出现牌阵。
