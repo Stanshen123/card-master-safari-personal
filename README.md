@@ -87,8 +87,8 @@
 
 ## 安装
 
-到 [Releases](https://github.com/LYiHub/Card-master-browser-extension-public/releases/latest)
-下载对应 zip，并核对 `SHA256SUMS.txt`。
+Chromium 与 Firefox 请到[上游 Releases](https://github.com/LYiHub/Card-master-browser-extension-public/releases/latest)
+下载对应 zip，并核对 `SHA256SUMS.txt`。Safari 请使用本 Fork 的[发布记录](https://github.com/Stanshen123/card-master-safari-personal/releases)中的源码，自行签名构建。
 
 > 这些 zip **不是安装包**。Chromium 内核浏览器和 Firefox 必须先解压，再加载那个
 > 带 `manifest.json` 的文件夹。
@@ -99,7 +99,8 @@
 | Chromium（保留浏览器新标签页） | `card-master-v*-chromium-browser-new-tab.zip` | 解压 → 加载未打包扩展 |
 | Firefox | `card-master-v*-firefox.zip` | 解压 → 临时载入附加组件 |
 | Firefox（保留浏览器新标签页） | `card-master-v*-firefox-browser-new-tab.zip` | 解压 → 临时载入附加组件 |
-| macOS Safari | 暂不提供下载 | 等待苹果公证完成，进展见 [Issue #2](https://github.com/LYiHub/Card-master-browser-extension-public/issues/2) |
+| macOS Safari | 本 Fork 的 source-only Release | 用自己的 Apple Development Team 在 Xcode 构建并安装 |
+| iPadOS Safari | 本 Fork 的 source-only Release | 生成 Safari 资源后，用自己的 Apple Development Team 部署到设备 |
 
 ### 保留浏览器原生新标签页
 
@@ -203,8 +204,7 @@ pnpm extension:package --platform=all
 
 ## 参与贡献
 
-用 [Issues](https://github.com/LYiHub/Card-master-browser-extension-public/issues)
-提问题和建议。提交代码前请跑通 `pnpm check`，并保持改动范围可验证。
+Safari／iPadOS 封装、此 Fork 的文档或构建问题，请用[本 Fork Issues](https://github.com/Stanshen123/card-master-safari-personal/issues)提出；核心扩展功能问题请到[上游 Issues](https://github.com/LYiHub/Card-master-browser-extension-public/issues)反馈。提交代码前请跑通 `pnpm check`，并保持改动范围可验证。
 
 ## 致谢
 

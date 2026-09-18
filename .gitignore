@@ -12,6 +12,16 @@ run.log
 *.local
 .env
 .env.*
+# Local Apple signing and build artifacts must never be committed.
+*.mobileprovision
+*.provisionprofile
+*.p12
+*.p8
+*.cer
+*.xcarchive/
+*.ipa
+*.app/
+DerivedData/
 assets/**/.DS_Store
 tmp/
 .local/
@@ -29,8 +39,6 @@ refs/
 /scripts/prepare-media-speed-vfx.mjs
 /scripts/runtime-media-optimization.json
 /scripts/safari-alpha-vfx.mjs
-/safari/Card Master/Card Master/Resources/Icon.png
-!/safari/Card Master/Card Master/Resources/Icon.png
 /safari-ios/Card Master iPad/Card Master iPad Extension/Resources-pre-0.2.1-sync-backup/
 /safari-ios/Card Master iPad/Card Master iPad Extension/Resources/
 /safari-ios/Card Master iPad/README-iPad-Dev.md
