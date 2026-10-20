@@ -64,7 +64,12 @@ import {
 import { resolveAssistantPageAttachment } from './assistant-page-observer';
 import { parseAssistantPortName } from './assistant-protocol';
 import { ExtensionAssistantService } from './assistant-service';
-import { AssistantSurfaceCoordinator } from './assistant-surface-background';
+import {
+  AssistantSurfaceCoordinator,
+  logPopupDiagnostic,
+  normalizeAssistantPanelMode,
+  warnPopupDiagnostic,
+} from './assistant-surface-background';
 import { mergeAutomaticUserscriptUpdates } from './automatic-update-commit';
 import { BackgroundEventBroadcaster } from './background-event-broadcaster';
 import { installBackgroundLifecycle } from './background-lifecycle';
@@ -359,10 +364,57 @@ const runtimeBridge = synchronizer
 const installInterceptor = new UserscriptInstallInterceptor(api);
 const assistantSurface = new AssistantSurfaceCoordinator(
   api,
+  'sidePanel',
   (event, error, details) =>
     extensionDiagnostics.warn('assistant-surface', event, error, details),
 );
 assistantSurface.install();
+
+let preferenceVersion = 0;
+const preferenceReady = api.storage.local
+  .get(USERSCRIPT_SETTINGS_STORAGE_KEY)
+  .then((stored) => {
+    if (preferenceVersion !== 0) return;
+    const raw = stored[USERSCRIPT_SETTINGS_STORAGE_KEY];
+    logPopupDiagnostic(
+      '[CardMaster:Background] preferenceReady raw settings loaded:',
+      raw,
+    );
+    if (raw && typeof raw === 'object' && 'assistantPanelMode' in raw) {
+      const mode = normalizeAssistantPanelMode(raw.assistantPanelMode);
+      logPopupDiagnostic(
+        `[CardMaster:Background] Initializing coordinator mode to: ${mode}`,
+      );
+      assistantSurface.setSurfacePreference(mode);
+    }
+  })
+  .catch((error) => {
+    warnPopupDiagnostic(
+      '[CardMaster:Background] preference-init-failed error:',
+      error,
+    );
+    extensionDiagnostics.warn(
+      'assistant-surface',
+      'preference-init-failed',
+      error,
+    );
+  });
+assistantSurface.setPreferenceReady(preferenceReady);
+
+api.storage.onChanged.addListener((changes) => {
+  const change = changes[USERSCRIPT_SETTINGS_STORAGE_KEY];
+  if (!change?.newValue) return;
+  const settings = change.newValue as { assistantPanelMode?: unknown };
+  if ('assistantPanelMode' in settings) {
+    preferenceVersion++;
+    const mode = normalizeAssistantPanelMode(settings.assistantPanelMode);
+    console.log(
+      '[CardMaster:Background] storage.onChanged updated assistantPanelMode to:',
+      mode,
+    );
+    assistantSurface.setSurfacePreference(mode);
+  }
+});
 installDeckToolbarEntry(api, {
   ...(api.sidebarAction
     ? {
@@ -575,6 +627,16 @@ async function persistUserscriptSettings(settings: UserscriptSettings) {
     [USERSCRIPT_SETTINGS_STORAGE_KEY]: settings,
   });
   return settings;
+}
+
+async function updateAssistantPanelMode(mode: 'sidePanel' | 'popup') {
+  const current = await readUserscriptSettings();
+  if (current.assistantPanelMode !== mode) {
+    await persistUserscriptSettings({
+      ...current,
+      assistantPanelMode: mode,
+    });
+  }
 }
 
 async function scheduleUserscriptUpdateAlarm(
@@ -895,7 +957,19 @@ api.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
   if (message.type === 'ai-assistant-surface-open') {
     const tabId = sender.tab?.id;
+    logPopupDiagnostic(
+      '[CardMaster:Background] Received ai-assistant-surface-open message:',
+      {
+        tabId,
+        senderTabUrl: sender.tab?.url,
+        messageTab: message.tab,
+        detectedBrowser: message.detectedBrowser,
+      },
+    );
     if (typeof tabId !== 'number') {
+      warnPopupDiagnostic(
+        '[CardMaster:Background] ai-assistant-surface-open rejected: missing tab id',
+      );
       sendResponse(
         userscriptBackgroundErrorResponse(
           new Error('卡牌大师智能体请求缺少当前标签页身份。'),
@@ -903,10 +977,45 @@ api.runtime.onMessage.addListener((message, sender, sendResponse) => {
       );
       return true;
     }
+    if (
+      message.detectedBrowser === 'arc' &&
+      assistantSurface.getPreference() !== 'popup'
+    ) {
+      logPopupDiagnostic(
+        '[CardMaster:Background] Auto-detected Arc browser from open request! Switching to popup mode.',
+      );
+      assistantSurface.setSurfacePreference('popup');
+      void updateAssistantPanelMode('popup');
+    }
     void assistantSurface
-      .open(tabId, message.tab)
-      .then(() => sendResponse({ ok: true }))
-      .catch((error) => sendResponse(userscriptBackgroundErrorResponse(error)));
+      .open(tabId, message.tab, message.detectedBrowser)
+      .then(() => {
+        logPopupDiagnostic(
+          `[CardMaster:Background] assistantSurface.open completed for tabId: ${tabId}`,
+        );
+        sendResponse({ ok: true });
+      })
+      .catch((error) => {
+        warnPopupDiagnostic(
+          `[CardMaster:Background] assistantSurface.open failed for tabId: ${tabId}`,
+          error,
+        );
+        sendResponse(userscriptBackgroundErrorResponse(error));
+      });
+    return true;
+  }
+  if (message.type === 'browser-environment-detected') {
+    if (
+      message.brand === 'arc' &&
+      assistantSurface.getPreference() !== 'popup'
+    ) {
+      logPopupDiagnostic(
+        '[CardMaster:Background] Auto-detected Arc browser from client heartbeat. Switching to popup mode.',
+      );
+      assistantSurface.setSurfacePreference('popup');
+      void updateAssistantPanelMode('popup');
+    }
+    sendResponse({ ok: true });
     return true;
   }
   void (async () => {

@@ -5277,7 +5277,12 @@
     }
   }
   function resolve(target) {
-    if (target.closest(".bk-feed-noopen")) return null;
+    if (
+      target.closest(
+        ".bk-feed-noopen, .bili-watch-later, .bili-watch-later--wrap",
+      )
+    )
+      return null;
     const pick = (root2, url) => {
       const img = root2.querySelector("img");
       return { url, cover: img && (img.currentSrc || img.src) || "" };

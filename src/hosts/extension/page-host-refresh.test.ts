@@ -99,6 +99,47 @@ describe('extension page host refresh', () => {
     );
   });
 
+  it('动态注入会跳过验证服务 iframe', async () => {
+    const executeScript = vi.fn().mockResolvedValue([]);
+    const api = {
+      tabs: {
+        query: vi.fn().mockResolvedValue([
+          {
+            id: 25,
+            url: 'https://example.com/',
+          },
+        ]),
+      },
+      permissions: {
+        contains: vi.fn().mockResolvedValue(true),
+      },
+      webNavigation: {
+        getAllFrames: vi.fn().mockResolvedValue([
+          { frameId: 0, url: 'https://example.com/' },
+          {
+            frameId: 7,
+            url: 'https://challenges.cloudflare.com/turnstile/v0/api.js',
+          },
+        ]),
+      },
+      scripting: { executeScript },
+    } as unknown as ExtensionBackgroundApi;
+
+    await refreshExtensionPageHosts(api);
+
+    const allFrameTargets = executeScript.mock.calls
+      .map(([injection]) => injection)
+      .filter((injection) => injection.target.frameIds);
+    expect(allFrameTargets.length).toBeGreaterThan(0);
+    expect(
+      allFrameTargets.every(
+        (injection) =>
+          injection.target.frameIds.length === 1 &&
+          injection.target.frameIds[0] === 0,
+      ),
+    ).toBe(true);
+  });
+
   it('只在 B 站播放器页注入赞助脚本', async () => {
     const executeScript = vi.fn().mockResolvedValue([]);
     const api = {

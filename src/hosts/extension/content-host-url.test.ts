@@ -5,6 +5,7 @@ import {
   extensionHostPermissionPattern,
   extensionOwnedDeckHostUrl,
   extensionOwnedNewTabHostUrl,
+  isBrowserVerificationUrl,
 } from './content-host-url';
 
 describe('扩展页面宿主地址', () => {
@@ -33,10 +34,33 @@ describe('扩展页面宿主地址', () => {
     'https://accounts.youtube.com/accounts/SetSID',
     'https://appleid.apple.com/auth/authorize',
     'https://login.microsoftonline.com/common/oauth2/v2.0/authorize',
+    'https://challenges.cloudflare.com/turnstile/v0/api.js',
+    'https://widget.hcaptcha.com/1/api.js',
+    'https://client-api.arkoselabs.com/fc/api/',
+    'https://static.geetest.com/static/js/gt.js',
+    'https://www.google.com/recaptcha/api2/anchor',
+    'https://www.gstatic.com/recaptcha/releases/example/recaptcha__en.js',
+    'https://www.recaptcha.net/recaptcha/api.js',
     'about:blank',
     'not-a-url',
   ])('拒绝不可注入地址 %s', (url) => {
     expect(extensionContentHostUrl(url)).toBe(false);
+  });
+
+  it.each([
+    'https://challenges.cloudflare.com/turnstile/v0/api.js',
+    'https://newassets.hcaptcha.com/captcha/v1/index.html',
+    'https://client-api.arkoselabs.com/fc/api/',
+    'https://static.geetest.com/static/js/gt.js',
+    'https://www.google.com/recaptcha/api2/anchor',
+  ])('识别验证服务页面 %s', (url) => {
+    expect(isBrowserVerificationUrl(url)).toBe(true);
+  });
+
+  it('不把普通 Google 页面误判为验证页面', () => {
+    expect(
+      isBrowserVerificationUrl('https://www.google.com/search?q=test'),
+    ).toBe(false);
   });
 
   it('生成当前页面的精确站点权限模式', () => {

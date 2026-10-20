@@ -190,7 +190,7 @@
         "vendor/bilibili/userscripts/bilikit-feed.user.js"
       ],
       "contentHashes": {
-        "vendor/bilibili/userscripts/bilikit-core.user.js": "c0105344d2306cedf09f13cca0ee8494eb40ff0f103cc2ab921776ae6e566e07",
+        "vendor/bilibili/userscripts/bilikit-core.user.js": "d7881963a634d1265982d76a658d0ed4b0fd0f0afecd6d2659fad9639e94fa1e",
         "vendor/bilibili/userscripts/bilikit-feed.user.js": "9acab4d4366138323362ac0b57acdc2e70bcca3ed9431a1b7bf5302546d4effc"
       }
     },

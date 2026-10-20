@@ -13,7 +13,7 @@ describe('跨浏览器扩展清单', () => {
   it('保持统一的产品身份与能力描述', () => {
     expect(commonManifest.name).toBe('卡牌大师');
     expect(commonManifest.short_name).toBe('卡牌大师');
-    expect(commonManifest.version).toBe('0.2.8');
+    expect(commonManifest.version).toBe('0.3.2');
     expect(commonManifest.description).toBe(
       '以游戏化卡牌统一管理用户脚本与网页能力：AI 创建脚本、原生内容过滤、页面光影、媒体控制、视频增强与游戏手柄交互。',
     );
@@ -131,19 +131,19 @@ describe('跨浏览器扩展清单', () => {
     expect(safariManifest).not.toHaveProperty('sidebar_action');
     expect(safariManifest.content_scripts).toEqual(
       expect.arrayContaining([
-        {
+        expect.objectContaining({
           matches: ['<all_urls>'],
           js: ['media-speed-proxy.js', 'safari-main-world-bootstrap.js'],
           run_at: 'document_start',
           all_frames: true,
           match_about_blank: true,
-        },
-        {
+        }),
+        expect.objectContaining({
           matches: ['<all_urls>'],
           js: ['safari-userscript-runtime.js'],
           run_at: 'document_start',
           all_frames: true,
-        },
+        }),
       ]),
     );
     expect(

@@ -1,7 +1,11 @@
 import { describe, expect, it, vi } from 'vitest';
 
 import type { ExtensionBackgroundApi } from './api';
-import { AssistantSurfaceCoordinator } from './assistant-surface-background';
+import {
+  AssistantSurfaceCoordinator,
+  calculateSidebarBounds,
+  normalizeAssistantPanelMode,
+} from './assistant-surface-background';
 import { assistantSurfaceLifecyclePortName } from './assistant-surface-path';
 
 function event<Arguments extends unknown[]>() {
@@ -43,7 +47,15 @@ function api() {
       setOptions,
     },
   } as unknown as ExtensionBackgroundApi;
-  return { onConnect, onCreated, open, setOptions, value };
+  return {
+    onConnect,
+    onCreated,
+    onInstalled,
+    onStartup,
+    open,
+    setOptions,
+    value,
+  };
 }
 
 function port(name: string) {
@@ -151,6 +163,45 @@ describe('AssistantSurfaceCoordinator', () => {
     });
   });
 
+  it('does not report failure when tab configuration fails due to restricted browser page', async () => {
+    const test = api();
+    const report = vi.fn();
+    test.setOptions.mockRejectedValueOnce(
+      new Error('Cannot access a chrome:// URL'),
+    );
+    const coordinator = new AssistantSurfaceCoordinator(test.value, report);
+    coordinator.install();
+
+    test.onCreated.emit({ id: 9 } as chrome.tabs.Tab);
+    await new Promise((resolve) => setTimeout(resolve, 10));
+
+    expect(report).not.toHaveBeenCalled();
+  });
+
+  it('skips configuring tabs on restricted browser schemes during existing tab configuration', async () => {
+    const test = api();
+    const report = vi.fn();
+    (
+      test.value.tabs.query as unknown as ReturnType<typeof vi.fn>
+    ).mockResolvedValueOnce([
+      { id: 1, url: 'chrome://extensions' },
+      { id: 2, url: 'arc://flags' },
+      { id: 3, url: 'https://example.com' },
+    ]);
+    const coordinator = new AssistantSurfaceCoordinator(test.value, report);
+    coordinator.install();
+
+    test.onStartup.emit();
+    await vi.waitFor(() => expect(test.setOptions).toHaveBeenCalledTimes(1));
+
+    expect(test.setOptions).toHaveBeenCalledWith({
+      tabId: 3,
+      path: 'assistant.html?tabId=3',
+      enabled: true,
+    });
+    expect(report).not.toHaveBeenCalled();
+  });
+
   it('returns the current tab identity without transient entry state', async () => {
     const test = api();
     const coordinator = new AssistantSurfaceCoordinator(test.value);
@@ -211,8 +262,7 @@ describe('AssistantSurfaceCoordinator', () => {
     expect(create).toHaveBeenCalledWith({
       url: 'safari-web-extension://id/assistant.html?tabId=7',
       type: 'popup',
-      width: 480,
-      height: 780,
+      focused: true,
     });
   });
 
@@ -275,5 +325,412 @@ describe('AssistantSurfaceCoordinator', () => {
     const coordinator = new AssistantSurfaceCoordinator(test.value);
 
     await expect(coordinator.open(7)).rejects.toThrow('sidebar unavailable');
+  });
+
+  describe('assistant panel mode preference', () => {
+    it('normalizes preference values correctly', () => {
+      expect(normalizeAssistantPanelMode('popup')).toBe('popup');
+      expect(normalizeAssistantPanelMode('sidePanel')).toBe('sidePanel');
+      expect(normalizeAssistantPanelMode(undefined)).toBe('sidePanel');
+      expect(normalizeAssistantPanelMode('other')).toBe('sidePanel');
+    });
+
+    it('switches to popup surface and creates a popup window', async () => {
+      const test = api();
+      const create = vi.fn(async () => undefined);
+      test.value.windows = { create } as ExtensionBackgroundApi['windows'];
+      test.value.runtime.getURL = vi.fn(
+        (path: string) => `chrome-extension://id/${path}`,
+      );
+      const coordinator = new AssistantSurfaceCoordinator(test.value);
+
+      coordinator.setSurfacePreference('popup');
+      await coordinator.open(7);
+
+      expect(create).toHaveBeenCalledWith({
+        url: 'chrome-extension://id/assistant.html?tabId=7',
+        type: 'popup',
+        focused: true,
+      });
+      expect(test.open).not.toHaveBeenCalled();
+    });
+
+    it('switches back to sidePanel surface from popup', async () => {
+      const test = api();
+      const create = vi.fn(async () => undefined);
+      test.value.windows = { create } as ExtensionBackgroundApi['windows'];
+      test.value.runtime.getURL = vi.fn(
+        (path: string) => `chrome-extension://id/${path}`,
+      );
+      const coordinator = new AssistantSurfaceCoordinator(test.value, 'popup');
+
+      coordinator.setSurfacePreference('sidePanel');
+      await coordinator.open(7);
+
+      expect(test.open).toHaveBeenCalledWith({ tabId: 7 });
+      expect(create).not.toHaveBeenCalled();
+    });
+
+    it('dispatches native sidebar immediately and synchronously on cold start in Firefox without microtask delay', async () => {
+      const test = api();
+      Reflect.deleteProperty(test.value, 'sidePanel');
+      test.value.sidebarAction = { open: test.open, setPanel: test.setOptions };
+      const coordinator = new AssistantSurfaceCoordinator(test.value);
+      let resolveReady: () => void = () => undefined;
+      const readyPromise = new Promise<void>((resolve) => {
+        resolveReady = resolve;
+      });
+      coordinator.setPreferenceReady(readyPromise);
+
+      const pendingOpen = coordinator.open(7);
+
+      // Must be called immediately in the same tick to preserve user action!
+      expect(test.open).toHaveBeenCalledWith();
+
+      resolveReady();
+      await pendingOpen;
+    });
+
+    it('awaits preference in non-Firefox environment to prevent premature native sidebar dispatch', async () => {
+      const test = api();
+      const create = vi.fn(async () => undefined);
+      test.value.windows = { create } as ExtensionBackgroundApi['windows'];
+      test.value.runtime.getURL = vi.fn(
+        (path: string) => `chrome-extension://id/${path}`,
+      );
+      const coordinator = new AssistantSurfaceCoordinator(test.value);
+      let resolveReady: () => void = () => undefined;
+      const readyPromise = new Promise<void>((resolve) => {
+        resolveReady = resolve;
+      });
+      coordinator.setPreferenceReady(readyPromise);
+
+      const pendingOpen = coordinator.open(7);
+
+      // In non-Firefox (Chromium/Arc), wait for preference before opening
+      expect(test.open).not.toHaveBeenCalled();
+
+      coordinator.setSurfacePreference('popup');
+      resolveReady();
+
+      await pendingOpen;
+
+      expect(create).toHaveBeenCalledWith({
+        url: 'chrome-extension://id/assistant.html?tabId=7',
+        type: 'popup',
+        focused: true,
+      });
+      expect(test.open).not.toHaveBeenCalled();
+    });
+
+    it('catches up and opens popup surface when cold start preference resolves to popup in Firefox', async () => {
+      const test = api();
+      Reflect.deleteProperty(test.value, 'sidePanel');
+      test.value.sidebarAction = { open: test.open, setPanel: test.setOptions };
+      const create = vi.fn(async () => undefined);
+      test.value.windows = { create } as ExtensionBackgroundApi['windows'];
+      test.value.runtime.getURL = vi.fn(
+        (path: string) => `chrome-extension://id/${path}`,
+      );
+      const coordinator = new AssistantSurfaceCoordinator(test.value);
+
+      let resolveReady: () => void = () => undefined;
+      const readyPromise = new Promise<void>((resolve) => {
+        resolveReady = resolve;
+      });
+      coordinator.setPreferenceReady(readyPromise);
+
+      const pendingOpen = coordinator.open(7);
+
+      expect(test.open).toHaveBeenCalledWith();
+      expect(create).not.toHaveBeenCalled();
+
+      coordinator.setSurfacePreference('popup');
+      resolveReady();
+
+      await pendingOpen;
+
+      await vi.waitFor(() =>
+        expect(create).toHaveBeenCalledWith({
+          url: 'chrome-extension://id/assistant.html?tabId=7',
+          type: 'popup',
+          focused: true,
+        }),
+      );
+    });
+
+    it('catches up and opens popup surface even if premature native sidebar connected lifecycle port during cold start', async () => {
+      const test = api();
+      Reflect.deleteProperty(test.value, 'sidePanel');
+      test.value.sidebarAction = { open: test.open, setPanel: test.setOptions };
+      const create = vi.fn(async () => undefined);
+      test.value.windows = { create } as ExtensionBackgroundApi['windows'];
+      test.value.runtime.getURL = vi.fn(
+        (path: string) => `chrome-extension://id/${path}`,
+      );
+      const coordinator = new AssistantSurfaceCoordinator(test.value);
+      coordinator.install();
+
+      let resolveReady: () => void = () => undefined;
+      const readyPromise = new Promise<void>((resolve) => {
+        resolveReady = resolve;
+      });
+      coordinator.setPreferenceReady(readyPromise);
+
+      const pendingOpen = coordinator.open(7);
+      expect(test.open).toHaveBeenCalledWith();
+
+      // Premature side panel opens and connects lifecycle port:
+      test.onConnect.emit(port(assistantSurfaceLifecyclePortName(7)).port);
+
+      coordinator.setSurfacePreference('popup');
+      resolveReady();
+
+      await pendingOpen;
+
+      await vi.waitFor(() =>
+        expect(create).toHaveBeenCalledWith({
+          url: 'chrome-extension://id/assistant.html?tabId=7',
+          type: 'popup',
+          focused: true,
+        }),
+      );
+    });
+
+    it('creates popup naturally without upfront bounds fighting and calculates right-docked sidebar bounds', async () => {
+      const test = api();
+      const create = vi.fn(async () => undefined);
+      const update = vi.fn(async () => undefined);
+      const getCurrent = vi.fn(async () => ({
+        id: 101,
+        left: 100,
+        top: 25,
+        width: 2370,
+        height: 1664,
+        state: 'normal',
+      }));
+      test.value.windows = {
+        create,
+        update,
+        getCurrent,
+      } as unknown as ExtensionBackgroundApi['windows'];
+      test.value.runtime.getURL = vi.fn(
+        (path: string) => `chrome-extension://id/${path}`,
+      );
+      const coordinator = new AssistantSurfaceCoordinator(test.value, 'popup');
+
+      await coordinator.open(7);
+
+      expect(create).toHaveBeenCalledWith({
+        url: 'chrome-extension://id/assistant.html?tabId=7',
+        type: 'popup',
+        focused: true,
+      });
+
+      const bounds = await calculateSidebarBounds(test.value, 480, 7);
+      expect(bounds.left).toBe(1990); // 100 + 2370 - 480 = 1990 (internal-right)
+      expect(bounds.dockingPlacement).toBe('internal-right');
+    });
+
+    it('calculates external right docking when desktop space is available to the right of the browser', async () => {
+      const test = api();
+      test.value.windows = {
+        getCurrent: vi.fn(async () => ({
+          id: 101,
+          left: 200,
+          top: 100,
+          width: 1200,
+          height: 800,
+          state: 'normal',
+        })),
+      } as unknown as ExtensionBackgroundApi['windows'];
+
+      // Screen width 2560: 200 + 1200 = 1400. Space on right = 2560 - 1400 = 1160 >= 480.
+      const bounds = await calculateSidebarBounds(test.value, 480, undefined, {
+        availWidth: 2560,
+        availHeight: 1440,
+        availLeft: 0,
+        availTop: 0,
+      });
+      expect(bounds.dockingPlacement).toBe('external-right');
+      expect(bounds.left).toBe(1400); // 200 + 1200 (external docking adjacent to host window)
+      expect(bounds.top).toBe(100);
+      expect(bounds.width).toBe(480);
+      expect(bounds.height).toBe(800);
+    });
+
+    it('calculates internal right docking when desktop space on the right is insufficient', async () => {
+      const test = api();
+      test.value.windows = {
+        getCurrent: vi.fn(async () => ({
+          id: 101,
+          left: 800,
+          top: 100,
+          width: 1000,
+          height: 800,
+          state: 'normal',
+        })),
+      } as unknown as ExtensionBackgroundApi['windows'];
+
+      // Screen width 1920: 800 + 1000 = 1800. Space on right = 1920 - 1800 = 120 < 480.
+      const bounds = await calculateSidebarBounds(test.value, 480, undefined, {
+        availWidth: 1920,
+        availHeight: 1080,
+      });
+      expect(bounds.dockingPlacement).toBe('internal-right');
+      expect(bounds.left).toBe(1320); // 1800 - 480 = 1320
+      expect(bounds.top).toBe(100);
+      expect(bounds.width).toBe(480);
+      expect(bounds.height).toBe(800);
+    });
+
+    it('calculates internal right docking when host window is maximized', async () => {
+      const test = api();
+      test.value.windows = {
+        getCurrent: vi.fn(async () => ({
+          id: 101,
+          left: 0,
+          top: 0,
+          width: 1920,
+          height: 1080,
+          state: 'maximized',
+        })),
+      } as unknown as ExtensionBackgroundApi['windows'];
+
+      const bounds = await calculateSidebarBounds(test.value, 480, undefined, {
+        availWidth: 1920,
+        availHeight: 1080,
+      });
+      expect(bounds.dockingPlacement).toBe('internal-fullscreen');
+      expect(bounds.left).toBe(1440); // 1920 - 480 = 1440
+      expect(bounds.width).toBe(480);
+      expect(bounds.height).toBe(1080);
+    });
+
+    it('updates popup layout smoothly when screen metrics are synchronized', async () => {
+      const test = api();
+      const create = vi.fn(async () => ({ id: 999 }));
+      const update = vi.fn(async () => ({ id: 999 }));
+      const getCurrent = vi.fn(async () => ({
+        id: 101,
+        left: 200,
+        top: 50,
+        width: 1200,
+        height: 900,
+        state: 'normal',
+      }));
+      test.value.windows = {
+        create,
+        update,
+        getCurrent,
+      } as unknown as ExtensionBackgroundApi['windows'];
+      test.value.runtime.getURL = vi.fn(
+        (path: string) => `chrome-extension://id/${path}`,
+      );
+      const coordinator = new AssistantSurfaceCoordinator(test.value, 'popup');
+
+      await coordinator.open(7);
+      expect(create).toHaveBeenCalledWith({
+        url: 'chrome-extension://id/assistant.html?tabId=7',
+        type: 'popup',
+        focused: true,
+      });
+
+      await coordinator.syncPopupLayout(7, {
+        availWidth: 2560,
+        availHeight: 1440,
+        availLeft: 0,
+        availTop: 0,
+      });
+
+      expect(update).toHaveBeenCalledWith(999, {
+        state: 'normal',
+        left: 1400, // 200 + 1200 (external-right)
+        top: 50,
+        width: 480,
+        height: 900,
+        focused: true,
+      });
+    });
+
+    it('clears preferenceReady so subsequent opens run directly without microtask delay', async () => {
+      const test = api();
+      const coordinator = new AssistantSurfaceCoordinator(test.value);
+      const readyPromise = Promise.resolve();
+      coordinator.setPreferenceReady(readyPromise);
+
+      await readyPromise;
+
+      const openPromise = coordinator.open(7);
+      expect(test.open).toHaveBeenCalledWith({ tabId: 7 });
+      await openPromise;
+    });
+
+    it('awaits preferenceReady when coordinator is configured for popup mode', async () => {
+      const test = api();
+      const create = vi.fn(async () => undefined);
+      test.value.windows = { create } as ExtensionBackgroundApi['windows'];
+      test.value.runtime.getURL = vi.fn(
+        (path: string) => `chrome-extension://id/${path}`,
+      );
+      const coordinator = new AssistantSurfaceCoordinator(test.value, 'popup');
+
+      let resolveReady: () => void = () => undefined;
+      const readyPromise = new Promise<void>((resolve) => {
+        resolveReady = resolve;
+      });
+      coordinator.setPreferenceReady(readyPromise);
+
+      const pendingOpen = coordinator.open(7);
+      expect(create).not.toHaveBeenCalled();
+
+      resolveReady();
+      await pendingOpen;
+
+      expect(create).toHaveBeenCalledWith({
+        url: 'chrome-extension://id/assistant.html?tabId=7',
+        type: 'popup',
+        focused: true,
+      });
+    });
+
+    it('calculates bounds using tab windowId when api.tabs.get and api.windows.get are available', async () => {
+      const test = api();
+      const create = vi.fn(async () => undefined);
+      const getWindow = vi.fn(async (winId: number) => ({
+        id: winId,
+        left: 200,
+        top: 50,
+        width: 1920,
+        height: 1080,
+      }));
+      test.value.tabs.get = vi.fn(
+        async (tabId: number) =>
+          ({
+            id: tabId,
+            windowId: 88,
+          }) as chrome.tabs.Tab,
+      );
+      test.value.windows = {
+        create,
+        get: getWindow,
+      } as unknown as ExtensionBackgroundApi['windows'];
+      test.value.runtime.getURL = vi.fn(
+        (path: string) => `chrome-extension://id/${path}`,
+      );
+      const coordinator = new AssistantSurfaceCoordinator(test.value, 'popup');
+
+      await coordinator.open(7);
+
+      expect(create).toHaveBeenCalledWith({
+        url: 'chrome-extension://id/assistant.html?tabId=7',
+        type: 'popup',
+        focused: true,
+      });
+      const bounds = await calculateSidebarBounds(test.value, 480, 7);
+      expect(bounds.left).toBe(1640); // 200 + 1920 - 480 = 1640
+      expect(test.value.tabs.get).toHaveBeenCalledWith(7);
+      expect(getWindow).toHaveBeenCalledWith(88);
+    });
   });
 });

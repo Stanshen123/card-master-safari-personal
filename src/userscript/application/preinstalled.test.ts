@@ -72,6 +72,16 @@ describe('preinstalled userscripts', () => {
     expect(copying?.source).toContain('stopImmediatePropagation');
   });
 
+  it('does not hijack native Bilibili watch-later controls', () => {
+    const bilikit = PREINSTALLED_USERSCRIPTS.find(
+      (script) => script.id === 'preinstalled-bilikit-core',
+    );
+
+    expect(bilikit?.source).toContain(
+      '.bili-watch-later, .bili-watch-later--wrap',
+    );
+  });
+
   it('adds each catalog entry once with its owned update policy', () => {
     const merged = mergePendingPreinstalledUserscripts([], emptyState, {
       now: () => 42,

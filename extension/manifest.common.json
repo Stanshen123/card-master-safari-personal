@@ -1,7 +1,7 @@
 {
   "name": "卡牌大师",
   "short_name": "卡牌大师",
-  "version": "0.2.8",
+  "version": "0.3.2",
   "description": "以游戏化卡牌统一管理用户脚本与网页能力：AI 创建脚本、原生内容过滤、页面光影、媒体控制、视频增强与游戏手柄交互。",
   "default_locale": "zh_CN",
   "host_permissions": ["<all_urls>"],
@@ -40,13 +40,41 @@
       "js": ["theme-proxy.js"],
       "run_at": "document_start",
       "all_frames": true,
+      "exclude_matches": [
+        "*://challenges.cloudflare.com/*",
+        "*://*.challenges.cloudflare.com/*",
+        "*://*.arkoselabs.com/*",
+        "*://*.funcaptcha.com/*",
+        "*://*.geetest.com/*",
+        "*://*.geevisit.com/*",
+        "*://*.gsensebot.com/*",
+        "*://*.hcaptcha.com/*",
+        "*://www.google.com/recaptcha/*",
+        "*://www.gstatic.com/recaptcha/*",
+        "*://www.recaptcha.net/recaptcha/*",
+        "*://recaptcha.net/recaptcha/*"
+      ],
       "world": "MAIN"
     },
     {
       "matches": ["<all_urls>"],
       "js": ["theme-content.js"],
       "run_at": "document_start",
-      "all_frames": true
+      "all_frames": true,
+      "exclude_matches": [
+        "*://challenges.cloudflare.com/*",
+        "*://*.challenges.cloudflare.com/*",
+        "*://*.arkoselabs.com/*",
+        "*://*.funcaptcha.com/*",
+        "*://*.geetest.com/*",
+        "*://*.geevisit.com/*",
+        "*://*.gsensebot.com/*",
+        "*://*.hcaptcha.com/*",
+        "*://www.google.com/recaptcha/*",
+        "*://www.gstatic.com/recaptcha/*",
+        "*://www.recaptcha.net/recaptcha/*",
+        "*://recaptcha.net/recaptcha/*"
+      ]
     },
     {
       "matches": ["*://*.bilibili.com/*"],
@@ -163,38 +191,122 @@
       "run_at": "document_start",
       "all_frames": true,
       "match_about_blank": true,
+      "exclude_matches": [
+        "*://challenges.cloudflare.com/*",
+        "*://*.challenges.cloudflare.com/*",
+        "*://*.arkoselabs.com/*",
+        "*://*.funcaptcha.com/*",
+        "*://*.geetest.com/*",
+        "*://*.geevisit.com/*",
+        "*://*.gsensebot.com/*",
+        "*://*.hcaptcha.com/*",
+        "*://www.google.com/recaptcha/*",
+        "*://www.gstatic.com/recaptcha/*",
+        "*://www.recaptcha.net/recaptcha/*",
+        "*://recaptcha.net/recaptcha/*"
+      ],
       "world": "MAIN"
     },
     {
       "matches": ["<all_urls>"],
       "js": ["gamepad-content.js"],
       "run_at": "document_start",
-      "all_frames": false
+      "all_frames": false,
+      "exclude_matches": [
+        "*://challenges.cloudflare.com/*",
+        "*://*.challenges.cloudflare.com/*",
+        "*://*.arkoselabs.com/*",
+        "*://*.funcaptcha.com/*",
+        "*://*.geetest.com/*",
+        "*://*.geevisit.com/*",
+        "*://*.gsensebot.com/*",
+        "*://*.hcaptcha.com/*",
+        "*://www.google.com/recaptcha/*",
+        "*://www.gstatic.com/recaptcha/*",
+        "*://www.recaptcha.net/recaptcha/*",
+        "*://recaptcha.net/recaptcha/*"
+      ]
     },
     {
       "matches": ["<all_urls>"],
       "js": ["media-speed-content.js"],
       "run_at": "document_start",
       "all_frames": true,
-      "match_about_blank": true
+      "match_about_blank": true,
+      "exclude_matches": [
+        "*://challenges.cloudflare.com/*",
+        "*://*.challenges.cloudflare.com/*",
+        "*://*.arkoselabs.com/*",
+        "*://*.funcaptcha.com/*",
+        "*://*.geetest.com/*",
+        "*://*.geevisit.com/*",
+        "*://*.gsensebot.com/*",
+        "*://*.hcaptcha.com/*",
+        "*://www.google.com/recaptcha/*",
+        "*://www.gstatic.com/recaptcha/*",
+        "*://www.recaptcha.net/recaptcha/*",
+        "*://recaptcha.net/recaptcha/*"
+      ]
     },
     {
       "matches": ["https://*/*", "http://*/*"],
       "js": ["js/card-master-adapter.js", "js/content-script.js"],
       "run_at": "document_start",
-      "all_frames": true
+      "all_frames": true,
+      "exclude_matches": [
+        "*://challenges.cloudflare.com/*",
+        "*://*.challenges.cloudflare.com/*",
+        "*://*.arkoselabs.com/*",
+        "*://*.funcaptcha.com/*",
+        "*://*.geetest.com/*",
+        "*://*.geevisit.com/*",
+        "*://*.gsensebot.com/*",
+        "*://*.hcaptcha.com/*",
+        "*://www.google.com/recaptcha/*",
+        "*://www.gstatic.com/recaptcha/*",
+        "*://www.recaptcha.net/recaptcha/*",
+        "*://recaptcha.net/recaptcha/*"
+      ]
     },
     {
       "matches": ["<all_urls>"],
       "js": ["adguard-content.js"],
       "run_at": "document_start",
-      "all_frames": true
+      "all_frames": true,
+      "exclude_matches": [
+        "*://challenges.cloudflare.com/*",
+        "*://*.challenges.cloudflare.com/*",
+        "*://*.arkoselabs.com/*",
+        "*://*.funcaptcha.com/*",
+        "*://*.geetest.com/*",
+        "*://*.geevisit.com/*",
+        "*://*.gsensebot.com/*",
+        "*://*.hcaptcha.com/*",
+        "*://www.google.com/recaptcha/*",
+        "*://www.gstatic.com/recaptcha/*",
+        "*://www.recaptcha.net/recaptcha/*",
+        "*://recaptcha.net/recaptcha/*"
+      ]
     },
     {
       "matches": ["<all_urls>"],
       "js": ["content.js"],
       "run_at": "document_idle",
-      "all_frames": false
+      "all_frames": false,
+      "exclude_matches": [
+        "*://challenges.cloudflare.com/*",
+        "*://*.challenges.cloudflare.com/*",
+        "*://*.arkoselabs.com/*",
+        "*://*.funcaptcha.com/*",
+        "*://*.geetest.com/*",
+        "*://*.geevisit.com/*",
+        "*://*.gsensebot.com/*",
+        "*://*.hcaptcha.com/*",
+        "*://www.google.com/recaptcha/*",
+        "*://www.gstatic.com/recaptcha/*",
+        "*://www.recaptcha.net/recaptcha/*",
+        "*://recaptcha.net/recaptcha/*"
+      ]
     }
   ],
   "web_accessible_resources": [
@@ -246,7 +358,7 @@
       },
       {
         "id": "ruleset_3",
-        "enabled": true,
+        "enabled": false,
         "path": "filters/declarative/ruleset_3/ruleset_3.json"
       },
       {

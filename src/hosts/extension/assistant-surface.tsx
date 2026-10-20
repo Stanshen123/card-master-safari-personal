@@ -92,6 +92,82 @@ function isFullPage() {
   return new URLSearchParams(location.search).get('fullPage') === '1';
 }
 
+function formatClientLogPayload(payload: unknown): string {
+  if (payload === undefined) return '';
+  if (typeof payload === 'string') return payload;
+  if (payload instanceof Error) {
+    return JSON.stringify({
+      name: payload.name,
+      message: payload.message,
+      stack: payload.stack,
+    });
+  }
+  try {
+    return JSON.stringify(payload);
+  } catch {
+    return String(payload);
+  }
+}
+
+function logClientDiagnostic(tag: string, payload?: unknown) {
+  const line =
+    payload === undefined ? tag : `${tag} ${formatClientLogPayload(payload)}`;
+  console.log(line);
+  if (typeof globalThis !== 'undefined') {
+    if (!globalThis.__cardMasterPopupLogs) {
+      globalThis.__cardMasterPopupLogs = [];
+      globalThis.dumpCardMasterLogs = () =>
+        globalThis.__cardMasterPopupLogs?.join('\n') ?? 'No logs recorded.';
+    }
+    globalThis.__cardMasterPopupLogs.push(line);
+  }
+}
+
+function warnClientDiagnostic(tag: string, errorOrPayload?: unknown) {
+  const details =
+    errorOrPayload instanceof Error
+      ? { message: errorOrPayload.message, stack: errorOrPayload.stack }
+      : errorOrPayload;
+  const line = `${tag} ${formatClientLogPayload(details)}`;
+  console.warn(line);
+  if (typeof globalThis !== 'undefined') {
+    if (!globalThis.__cardMasterPopupLogs) {
+      globalThis.__cardMasterPopupLogs = [];
+      globalThis.dumpCardMasterLogs = () =>
+        globalThis.__cardMasterPopupLogs?.join('\n') ?? 'No logs recorded.';
+    }
+    globalThis.__cardMasterPopupLogs.push(`[WARN] ${line}`);
+  }
+}
+
+function recordSurfaceMountMetrics() {
+  if (typeof window === 'undefined' || isFullPage()) return;
+
+  logClientDiagnostic('[CardMaster:Popup:Client] [CP-6:SurfaceMount]', {
+    href: location.href,
+    search: location.search,
+    innerWidth: window.innerWidth,
+    innerHeight: window.innerHeight,
+    outerWidth: window.outerWidth,
+    outerHeight: window.outerHeight,
+    screenWidth: window.screen?.width,
+    screenHeight: window.screen?.height,
+    availWidth: window.screen?.availWidth,
+    availHeight: window.screen?.availHeight,
+    devicePixelRatio: window.devicePixelRatio,
+  });
+
+  window.addEventListener('resize', () => {
+    logClientDiagnostic('[CardMaster:Popup:Client] [CP-9:WindowResizeEvent]', {
+      innerWidth: window.innerWidth,
+      innerHeight: window.innerHeight,
+      outerWidth: window.outerWidth,
+      outerHeight: window.outerHeight,
+      timestamp: new Date().toISOString(),
+    });
+  });
+}
+
 async function resolveTabId(api: ExtensionApi) {
   const supplied = queryTabId();
   if (supplied !== null) return supplied;
@@ -311,6 +387,7 @@ window.addEventListener('pagehide', disposeAssistantSurface, { once: true });
 
 async function bootstrap() {
   const api = requireExtensionApi();
+  recordSurfaceMountMetrics();
   const tabId = await resolveTabId(api);
   if (disposed) return;
   surfaceLifecyclePort = isFullPage()
@@ -319,6 +396,28 @@ async function bootstrap() {
         name: assistantSurfaceLifecyclePortName(tabId),
       });
   if (surfaceLifecyclePort) {
+    try {
+      const screenExt = window.screen as unknown as {
+        availLeft?: number;
+        availTop?: number;
+      };
+      surfaceLifecyclePort.postMessage({
+        type: 'assistant-surface-screen-metrics',
+        screen: {
+          availLeft: screenExt.availLeft ?? 0,
+          availTop: screenExt.availTop ?? 0,
+          availWidth: window.screen.availWidth,
+          availHeight: window.screen.availHeight,
+          width: window.screen.width,
+          height: window.screen.height,
+        },
+      });
+    } catch (metricErr) {
+      warnClientDiagnostic(
+        '[CardMaster:Popup:Client] Failed to send screen metrics:',
+        metricErr,
+      );
+    }
     const handleDisconnect = () => {
       try {
         void api.runtime.lastError;

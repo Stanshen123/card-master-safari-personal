@@ -31,13 +31,41 @@
       "js": ["media-speed-proxy.js", "safari-main-world-bootstrap.js"],
       "run_at": "document_start",
       "all_frames": true,
-      "match_about_blank": true
+      "match_about_blank": true,
+      "exclude_matches": [
+        "*://challenges.cloudflare.com/*",
+        "*://*.challenges.cloudflare.com/*",
+        "*://*.arkoselabs.com/*",
+        "*://*.funcaptcha.com/*",
+        "*://*.geetest.com/*",
+        "*://*.geevisit.com/*",
+        "*://*.gsensebot.com/*",
+        "*://*.hcaptcha.com/*",
+        "*://www.google.com/recaptcha/*",
+        "*://www.gstatic.com/recaptcha/*",
+        "*://www.recaptcha.net/recaptcha/*",
+        "*://recaptcha.net/recaptcha/*"
+      ]
     },
     {
       "matches": ["<all_urls>"],
       "js": ["theme-content.js"],
       "run_at": "document_start",
-      "all_frames": true
+      "all_frames": true,
+      "exclude_matches": [
+        "*://challenges.cloudflare.com/*",
+        "*://*.challenges.cloudflare.com/*",
+        "*://*.arkoselabs.com/*",
+        "*://*.funcaptcha.com/*",
+        "*://*.geetest.com/*",
+        "*://*.geevisit.com/*",
+        "*://*.gsensebot.com/*",
+        "*://*.hcaptcha.com/*",
+        "*://www.google.com/recaptcha/*",
+        "*://www.gstatic.com/recaptcha/*",
+        "*://www.recaptcha.net/recaptcha/*",
+        "*://recaptcha.net/recaptcha/*"
+      ]
     },
     {
       "matches": ["*://*.bilibili.com/*"],
@@ -113,31 +141,101 @@
       "js": ["media-speed-content.js"],
       "run_at": "document_start",
       "all_frames": true,
-      "match_about_blank": true
+      "match_about_blank": true,
+      "exclude_matches": [
+        "*://challenges.cloudflare.com/*",
+        "*://*.challenges.cloudflare.com/*",
+        "*://*.arkoselabs.com/*",
+        "*://*.funcaptcha.com/*",
+        "*://*.geetest.com/*",
+        "*://*.geevisit.com/*",
+        "*://*.gsensebot.com/*",
+        "*://*.hcaptcha.com/*",
+        "*://www.google.com/recaptcha/*",
+        "*://www.gstatic.com/recaptcha/*",
+        "*://www.recaptcha.net/recaptcha/*",
+        "*://recaptcha.net/recaptcha/*"
+      ]
     },
     {
       "matches": ["<all_urls>"],
       "js": ["gamepad-content.js"],
       "run_at": "document_start",
-      "all_frames": false
+      "all_frames": false,
+      "exclude_matches": [
+        "*://challenges.cloudflare.com/*",
+        "*://*.challenges.cloudflare.com/*",
+        "*://*.arkoselabs.com/*",
+        "*://*.funcaptcha.com/*",
+        "*://*.geetest.com/*",
+        "*://*.geevisit.com/*",
+        "*://*.gsensebot.com/*",
+        "*://*.hcaptcha.com/*",
+        "*://www.google.com/recaptcha/*",
+        "*://www.gstatic.com/recaptcha/*",
+        "*://www.recaptcha.net/recaptcha/*",
+        "*://recaptcha.net/recaptcha/*"
+      ]
     },
     {
       "matches": ["<all_urls>"],
       "js": ["safari-userscript-runtime.js"],
       "run_at": "document_start",
-      "all_frames": true
+      "all_frames": true,
+      "exclude_matches": [
+        "*://challenges.cloudflare.com/*",
+        "*://*.challenges.cloudflare.com/*",
+        "*://*.arkoselabs.com/*",
+        "*://*.funcaptcha.com/*",
+        "*://*.geetest.com/*",
+        "*://*.geevisit.com/*",
+        "*://*.gsensebot.com/*",
+        "*://*.hcaptcha.com/*",
+        "*://www.google.com/recaptcha/*",
+        "*://www.gstatic.com/recaptcha/*",
+        "*://www.recaptcha.net/recaptcha/*",
+        "*://recaptcha.net/recaptcha/*"
+      ]
     },
     {
       "matches": ["<all_urls>"],
       "js": ["adguard-content.js"],
       "run_at": "document_start",
-      "all_frames": true
+      "all_frames": true,
+      "exclude_matches": [
+        "*://challenges.cloudflare.com/*",
+        "*://*.challenges.cloudflare.com/*",
+        "*://*.arkoselabs.com/*",
+        "*://*.funcaptcha.com/*",
+        "*://*.geetest.com/*",
+        "*://*.geevisit.com/*",
+        "*://*.gsensebot.com/*",
+        "*://*.hcaptcha.com/*",
+        "*://www.google.com/recaptcha/*",
+        "*://www.gstatic.com/recaptcha/*",
+        "*://www.recaptcha.net/recaptcha/*",
+        "*://recaptcha.net/recaptcha/*"
+      ]
     },
     {
       "matches": ["<all_urls>"],
       "js": ["content.js"],
       "run_at": "document_idle",
-      "all_frames": false
+      "all_frames": false,
+      "exclude_matches": [
+        "*://challenges.cloudflare.com/*",
+        "*://*.challenges.cloudflare.com/*",
+        "*://*.arkoselabs.com/*",
+        "*://*.funcaptcha.com/*",
+        "*://*.geetest.com/*",
+        "*://*.geevisit.com/*",
+        "*://*.gsensebot.com/*",
+        "*://*.hcaptcha.com/*",
+        "*://www.google.com/recaptcha/*",
+        "*://www.gstatic.com/recaptcha/*",
+        "*://www.recaptcha.net/recaptcha/*",
+        "*://recaptcha.net/recaptcha/*"
+      ]
     }
   ],
   "web_accessible_resources": [

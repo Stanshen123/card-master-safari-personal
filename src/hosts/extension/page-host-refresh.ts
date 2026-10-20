@@ -3,6 +3,7 @@ import { bilibiliSponsorPage } from './bilibili-sponsor-page';
 import {
   extensionContentHostUrl,
   extensionHostPermissionPattern,
+  isBrowserVerificationUrl,
 } from './content-host-url';
 import {
   extensionDiagnostics,
@@ -138,6 +139,21 @@ function allPageHostInjections(url: string): readonly PageHostInjection[] {
   return [...pageHostInjections(), ...vendorPageHostInjections(url)];
 }
 
+async function safeFrameIds(api: ExtensionBackgroundApi, tabId: number) {
+  const getAllFrames = api.webNavigation?.getAllFrames;
+  if (!getAllFrames) return null;
+  try {
+    const frames = await api.webNavigation.getAllFrames?.({ tabId });
+    return (
+      frames
+        ?.filter((frame) => !isBrowserVerificationUrl(frame.url))
+        .map((frame) => frame.frameId) ?? []
+    );
+  } catch {
+    return [];
+  }
+}
+
 export function injectableExtensionPage(tab: chrome.tabs.Tab) {
   return (
     typeof tab.id === 'number' &&
@@ -166,7 +182,12 @@ export async function refreshExtensionPageHosts(api: ExtensionBackgroundApi) {
           return;
         }
       }
+      let frameIds: number[] | null = null;
       for (const injection of allPageHostInjections(url)) {
+        if (injection.allFrames && frameIds === null) {
+          frameIds = await safeFrameIds(api, tabId);
+        }
+        if (injection.allFrames && frameIds?.length === 0) continue;
         const details = {
           tabId,
           url,
@@ -178,7 +199,9 @@ export async function refreshExtensionPageHosts(api: ExtensionBackgroundApi) {
           await api.scripting.executeScript({
             target: {
               tabId,
-              allFrames: injection.allFrames,
+              ...(injection.allFrames && frameIds
+                ? { frameIds }
+                : { allFrames: injection.allFrames }),
             },
             files: [injection.file],
             ...('world' in injection ? { world: injection.world } : {}),
